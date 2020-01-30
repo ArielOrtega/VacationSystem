@@ -1,0 +1,828 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AnalisisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="personaId" />
+          </Key>
+          <Property Name="personaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="identification" Type="int" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+          <Property Name="PayrollRolId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Day">
+          <Key>
+            <PropertyRef Name="day" />
+          </Key>
+          <Property Name="day" Type="datetime" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+          <Property Name="isHoliday" Type="int" />
+        </EntityType>
+        <EntityType Name="Departament">
+          <Key>
+            <PropertyRef Name="departamentId" />
+          </Key>
+          <Property Name="departamentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="udaedAt" Type="datetime" Nullable="false" />
+          <Property Name="PersonpersonaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HoliDays">
+          <Key>
+            <PropertyRef Name="holiDaysId" />
+          </Key>
+          <Property Name="holiDaysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isObligatory" Type="tinyint" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="isPaid" Type="tinyint" Nullable="false" />
+          <Property Name="cratedAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+          <Property Name="DayDay" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Payroll">
+          <Key>
+            <PropertyRef Name="RolId" />
+          </Key>
+          <Property Name="RolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="salary" Type="int" Nullable="false" />
+          <Property Name="bonusSalary" Type="int" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="permisoId" />
+          </Key>
+          <Property Name="permisoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="RolRolId" Type="int" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person1">
+          <Key>
+            <PropertyRef Name="personaId" />
+          </Key>
+          <Property Name="personaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="identification" Type="int" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+          <Property Name="PayrollRolId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person_Departament">
+          <Key>
+            <PropertyRef Name="PersonpersonaId" />
+            <PropertyRef Name="DepartamentdepartamentId" />
+          </Key>
+          <Property Name="PersonpersonaId" Type="int" Nullable="false" />
+          <Property Name="DepartamentdepartamentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person_Rol">
+          <Key>
+            <PropertyRef Name="PersonpersonaId" />
+            <PropertyRef Name="RolRolId" />
+          </Key>
+          <Property Name="PersonpersonaId" Type="int" Nullable="false" />
+          <Property Name="RolRolId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="requestId" />
+          </Key>
+          <Property Name="requestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="state" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="daysRequestedCount" Type="int" Nullable="false" />
+          <Property Name="midDaysCount" Type="int" Nullable="false" />
+          <Property Name="PersonpersonaId" Type="int" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="rolId" />
+          </Key>
+          <Property Name="rolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PersonpersonaId" Type="int" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol_Permission">
+          <Key>
+            <PropertyRef Name="RolRolId" />
+            <PropertyRef Name="PermissionpermisoId" />
+          </Key>
+          <Property Name="RolRolId" Type="int" Nullable="false" />
+          <Property Name="PermissionpermisoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VacationInfo">
+          <Key>
+            <PropertyRef Name="vacationId" />
+          </Key>
+          <Property Name="vacationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="availableDays" Type="int" Nullable="false" />
+          <Property Name="DaysPerYear" Type="int" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="updatedAt" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" Nullable="false" />
+          <Property Name="RequestrequestId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="Belongs">
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="1" />
+          <End Role="Person1" Type="Self.Person1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payroll">
+              <PropertyRef Name="RolId" />
+            </Principal>
+            <Dependent Role="Person1">
+              <PropertyRef Name="PayrollRolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKPerson_Dep631438">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="1" />
+          <End Role="Person_Departament" Type="Self.Person_Departament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departament">
+              <PropertyRef Name="departamentId" />
+            </Principal>
+            <Dependent Role="Person_Departament">
+              <PropertyRef Name="DepartamentdepartamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKPerson_Dep672635">
+          <End Role="Person1" Type="Self.Person1" Multiplicity="1" />
+          <End Role="Person_Departament" Type="Self.Person_Departament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person1">
+              <PropertyRef Name="personaId" />
+            </Principal>
+            <Dependent Role="Person_Departament">
+              <PropertyRef Name="PersonpersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKPerson_Rol100945">
+          <End Role="Person1" Type="Self.Person1" Multiplicity="1" />
+          <End Role="Person_Rol" Type="Self.Person_Rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person1">
+              <PropertyRef Name="personaId" />
+            </Principal>
+            <Dependent Role="Person_Rol">
+              <PropertyRef Name="PersonpersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKPerson_Rol441355">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Person_Rol" Type="Self.Person_Rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="rolId" />
+            </Principal>
+            <Dependent Role="Person_Rol">
+              <PropertyRef Name="RolRolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKRol_Permis414931">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="Rol_Permission" Type="Self.Rol_Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="permisoId" />
+            </Principal>
+            <Dependent Role="Rol_Permission">
+              <PropertyRef Name="PermissionpermisoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKRol_Permis788078">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Rol_Permission" Type="Self.Rol_Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="rolId" />
+            </Principal>
+            <Dependent Role="Rol_Permission">
+              <PropertyRef Name="RolRolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Has">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="VacationInfo" Type="Self.VacationInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="requestId" />
+            </Principal>
+            <Dependent Role="VacationInfo">
+              <PropertyRef Name="RequestrequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Has_">
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+          <End Role="Day" Type="Self.Day" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="requestId" />
+            </Principal>
+            <Dependent Role="Day">
+              <PropertyRef Name="isHoliday" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Is">
+          <End Role="Day" Type="Self.Day" Multiplicity="0..1" />
+          <End Role="HoliDays" Type="Self.HoliDays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Day">
+              <PropertyRef Name="day" />
+            </Principal>
+            <Dependent Role="HoliDays">
+              <PropertyRef Name="DayDay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="manages">
+          <End Role="Person1" Type="Self.Person1" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person1">
+              <PropertyRef Name="personaId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="PersonpersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AnalisisModelStoreContainer">
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="ERS" store:Type="Tables" />
+          <EntitySet Name="Day" EntityType="Self.Day" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="Departament" EntityType="Self.Departament" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="HoliDays" EntityType="Self.HoliDays" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="Payroll" EntityType="Self.Payroll" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="Person1" EntityType="Self.Person1" Schema="VACATIONS" Table="Person" store:Type="Tables" />
+          <EntitySet Name="Person_Departament" EntityType="Self.Person_Departament" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="Person_Rol" EntityType="Self.Person_Rol" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="Rol_Permission" EntityType="Self.Rol_Permission" Schema="VACATIONS" store:Type="Tables" />
+          <EntitySet Name="VacationInfo" EntityType="Self.VacationInfo" Schema="VACATIONS" store:Type="Tables" />
+          <AssociationSet Name="Belongs" Association="Self.Belongs">
+            <End Role="Payroll" EntitySet="Payroll" />
+            <End Role="Person1" EntitySet="Person1" />
+          </AssociationSet>
+          <AssociationSet Name="FKPerson_Dep631438" Association="Self.FKPerson_Dep631438">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="Person_Departament" EntitySet="Person_Departament" />
+          </AssociationSet>
+          <AssociationSet Name="FKPerson_Dep672635" Association="Self.FKPerson_Dep672635">
+            <End Role="Person1" EntitySet="Person1" />
+            <End Role="Person_Departament" EntitySet="Person_Departament" />
+          </AssociationSet>
+          <AssociationSet Name="FKPerson_Rol100945" Association="Self.FKPerson_Rol100945">
+            <End Role="Person1" EntitySet="Person1" />
+            <End Role="Person_Rol" EntitySet="Person_Rol" />
+          </AssociationSet>
+          <AssociationSet Name="FKPerson_Rol441355" Association="Self.FKPerson_Rol441355">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Person_Rol" EntitySet="Person_Rol" />
+          </AssociationSet>
+          <AssociationSet Name="FKRol_Permis414931" Association="Self.FKRol_Permis414931">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Rol_Permission" EntitySet="Rol_Permission" />
+          </AssociationSet>
+          <AssociationSet Name="FKRol_Permis788078" Association="Self.FKRol_Permis788078">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Rol_Permission" EntitySet="Rol_Permission" />
+          </AssociationSet>
+          <AssociationSet Name="Has" Association="Self.Has">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="VacationInfo" EntitySet="VacationInfo" />
+          </AssociationSet>
+          <AssociationSet Name="Has_" Association="Self.Has_">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Day" EntitySet="Day" />
+          </AssociationSet>
+          <AssociationSet Name="Is" Association="Self.Is">
+            <End Role="Day" EntitySet="Day" />
+            <End Role="HoliDays" EntitySet="HoliDays" />
+          </AssociationSet>
+          <AssociationSet Name="manages" Association="Self.manages">
+            <End Role="Person1" EntitySet="Person1" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AnalisisModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="personaId" />
+          </Key>
+          <Property Name="personaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="identification" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <Property Name="PayrollRolId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Day">
+          <Key>
+            <PropertyRef Name="day1" />
+          </Key>
+          <Property Name="day1" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <Property Name="isHoliday" Type="Int32" />
+          <NavigationProperty Name="Request" Relationship="Self.Has_" FromRole="Day" ToRole="Request" />
+          <NavigationProperty Name="HoliDays" Relationship="Self.Is" FromRole="Day" ToRole="HoliDays" />
+        </EntityType>
+        <EntityType Name="Departament">
+          <Key>
+            <PropertyRef Name="departamentId" />
+          </Key>
+          <Property Name="departamentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="udaedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PersonpersonaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person1" Relationship="Self.Person_Departament" FromRole="Departament" ToRole="Person1" />
+        </EntityType>
+        <EntityType Name="HoliDays">
+          <Key>
+            <PropertyRef Name="holiDaysId" />
+          </Key>
+          <Property Name="holiDaysId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isObligatory" Type="Byte" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="isPaid" Type="Byte" Nullable="false" />
+          <Property Name="cratedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <Property Name="DayDay" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Day" Relationship="Self.Is" FromRole="HoliDays" ToRole="Day" />
+        </EntityType>
+        <EntityType Name="Payroll">
+          <Key>
+            <PropertyRef Name="RolId" />
+          </Key>
+          <Property Name="RolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="salary" Type="Int32" Nullable="false" />
+          <Property Name="bonusSalary" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person1" Relationship="Self.Belongs" FromRole="Payroll" ToRole="Person1" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="permisoId" />
+          </Key>
+          <Property Name="permisoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RolRolId" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="Self.Rol_Permission" FromRole="Permission" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Person1">
+          <Key>
+            <PropertyRef Name="personaId" />
+          </Key>
+          <Property Name="personaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="identification" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <Property Name="PayrollRolId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Payroll" Relationship="Self.Belongs" FromRole="Person1" ToRole="Payroll" />
+          <NavigationProperty Name="Request" Relationship="Self.manages" FromRole="Person1" ToRole="Request" />
+          <NavigationProperty Name="Departament" Relationship="Self.Person_Departament" FromRole="Person1" ToRole="Departament" />
+          <NavigationProperty Name="Rol" Relationship="Self.Person_Rol" FromRole="Person1" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="requestId" />
+          </Key>
+          <Property Name="requestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="state" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="daysRequestedCount" Type="Int32" Nullable="false" />
+          <Property Name="midDaysCount" Type="Int32" Nullable="false" />
+          <Property Name="PersonpersonaId" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Day" Relationship="Self.Has_" FromRole="Request" ToRole="Day" />
+          <NavigationProperty Name="Person1" Relationship="Self.manages" FromRole="Request" ToRole="Person1" />
+          <NavigationProperty Name="VacationInfo" Relationship="Self.Has" FromRole="Request" ToRole="VacationInfo" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="rolId" />
+          </Key>
+          <Property Name="rolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonpersonaId" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person1" Relationship="Self.Person_Rol" FromRole="Rol" ToRole="Person1" />
+          <NavigationProperty Name="Permission" Relationship="Self.Rol_Permission" FromRole="Rol" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="VacationInfo">
+          <Key>
+            <PropertyRef Name="vacationId" />
+          </Key>
+          <Property Name="vacationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="availableDays" Type="Int32" Nullable="false" />
+          <Property Name="DaysPerYear" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <Property Name="RequestrequestId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.Has" FromRole="VacationInfo" ToRole="Request" />
+        </EntityType>
+        <Association Name="Has_">
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+          <End Role="Day" Type="Self.Day" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="requestId" />
+            </Principal>
+            <Dependent Role="Day">
+              <PropertyRef Name="isHoliday" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Is">
+          <End Role="Day" Type="Self.Day" Multiplicity="0..1" />
+          <End Role="HoliDays" Type="Self.HoliDays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Day">
+              <PropertyRef Name="day1" />
+            </Principal>
+            <Dependent Role="HoliDays">
+              <PropertyRef Name="DayDay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Belongs">
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="1" />
+          <End Role="Person1" Type="Self.Person1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payroll">
+              <PropertyRef Name="RolId" />
+            </Principal>
+            <Dependent Role="Person1">
+              <PropertyRef Name="PayrollRolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="manages">
+          <End Role="Person1" Type="Self.Person1" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person1">
+              <PropertyRef Name="personaId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="PersonpersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Has">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="VacationInfo" Type="Self.VacationInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="requestId" />
+            </Principal>
+            <Dependent Role="VacationInfo">
+              <PropertyRef Name="RequestrequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Person_Departament">
+          <End Role="Departament" Type="Self.Departament" Multiplicity="*" />
+          <End Role="Person1" Type="Self.Person1" Multiplicity="*" />
+        </Association>
+        <Association Name="Person_Rol">
+          <End Role="Person1" Type="Self.Person1" Multiplicity="*" />
+          <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+        </Association>
+        <Association Name="Rol_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="EntitiesVacation" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="Day" EntityType="Self.Day" />
+          <EntitySet Name="Departament" EntityType="Self.Departament" />
+          <EntitySet Name="HoliDays" EntityType="Self.HoliDays" />
+          <EntitySet Name="Payroll" EntityType="Self.Payroll" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" />
+          <EntitySet Name="Person1" EntityType="Self.Person1" />
+          <EntitySet Name="Request" EntityType="Self.Request" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="VacationInfo" EntityType="Self.VacationInfo" />
+          <AssociationSet Name="Has_" Association="Self.Has_">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Day" EntitySet="Day" />
+          </AssociationSet>
+          <AssociationSet Name="Is" Association="Self.Is">
+            <End Role="Day" EntitySet="Day" />
+            <End Role="HoliDays" EntitySet="HoliDays" />
+          </AssociationSet>
+          <AssociationSet Name="Belongs" Association="Self.Belongs">
+            <End Role="Payroll" EntitySet="Payroll" />
+            <End Role="Person1" EntitySet="Person1" />
+          </AssociationSet>
+          <AssociationSet Name="manages" Association="Self.manages">
+            <End Role="Person1" EntitySet="Person1" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="Has" Association="Self.Has">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="VacationInfo" EntitySet="VacationInfo" />
+          </AssociationSet>
+          <AssociationSet Name="Person_Departament" Association="Self.Person_Departament">
+            <End Role="Departament" EntitySet="Departament" />
+            <End Role="Person1" EntitySet="Person1" />
+          </AssociationSet>
+          <AssociationSet Name="Person_Rol" Association="Self.Person_Rol">
+            <End Role="Person1" EntitySet="Person1" />
+            <End Role="Rol" EntitySet="Rol" />
+          </AssociationSet>
+          <AssociationSet Name="Rol_Permission" Association="Self.Rol_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Rol" EntitySet="Rol" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AnalisisModelStoreContainer" CdmEntityContainer="EntitiesVacation">
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="AnalisisModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="personaId" ColumnName="personaId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="identification" ColumnName="identification" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="PayrollRolId" ColumnName="PayrollRolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Day">
+            <EntityTypeMapping TypeName="AnalisisModel.Day">
+              <MappingFragment StoreEntitySet="Day">
+                <ScalarProperty Name="day1" ColumnName="day" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="isHoliday" ColumnName="isHoliday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departament">
+            <EntityTypeMapping TypeName="AnalisisModel.Departament">
+              <MappingFragment StoreEntitySet="Departament">
+                <ScalarProperty Name="departamentId" ColumnName="departamentId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="udaedAt" ColumnName="udaedAt" />
+                <ScalarProperty Name="PersonpersonaId" ColumnName="PersonpersonaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoliDays">
+            <EntityTypeMapping TypeName="AnalisisModel.HoliDays">
+              <MappingFragment StoreEntitySet="HoliDays">
+                <ScalarProperty Name="holiDaysId" ColumnName="holiDaysId" />
+                <ScalarProperty Name="isObligatory" ColumnName="isObligatory" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="isPaid" ColumnName="isPaid" />
+                <ScalarProperty Name="cratedAt" ColumnName="cratedAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="DayDay" ColumnName="DayDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payroll">
+            <EntityTypeMapping TypeName="AnalisisModel.Payroll">
+              <MappingFragment StoreEntitySet="Payroll">
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="bonusSalary" ColumnName="bonusSalary" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permission">
+            <EntityTypeMapping TypeName="AnalisisModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="permisoId" ColumnName="permisoId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="RolRolId" ColumnName="RolRolId" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person1">
+            <EntityTypeMapping TypeName="AnalisisModel.Person1">
+              <MappingFragment StoreEntitySet="Person1">
+                <ScalarProperty Name="personaId" ColumnName="personaId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="identification" ColumnName="identification" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="PayrollRolId" ColumnName="PayrollRolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="AnalisisModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="requestId" ColumnName="requestId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="daysRequestedCount" ColumnName="daysRequestedCount" />
+                <ScalarProperty Name="midDaysCount" ColumnName="midDaysCount" />
+                <ScalarProperty Name="PersonpersonaId" ColumnName="PersonpersonaId" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="AnalisisModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="rolId" ColumnName="rolId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="PersonpersonaId" ColumnName="PersonpersonaId" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VacationInfo">
+            <EntityTypeMapping TypeName="AnalisisModel.VacationInfo">
+              <MappingFragment StoreEntitySet="VacationInfo">
+                <ScalarProperty Name="vacationId" ColumnName="vacationId" />
+                <ScalarProperty Name="availableDays" ColumnName="availableDays" />
+                <ScalarProperty Name="DaysPerYear" ColumnName="DaysPerYear" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="RequestrequestId" ColumnName="RequestrequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Person_Departament" TypeName="AnalisisModel.Person_Departament" StoreEntitySet="Person_Departament">
+            <EndProperty Name="Departament">
+              <ScalarProperty Name="departamentId" ColumnName="DepartamentdepartamentId" />
+            </EndProperty>
+            <EndProperty Name="Person1">
+              <ScalarProperty Name="personaId" ColumnName="PersonpersonaId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Person_Rol" TypeName="AnalisisModel.Person_Rol" StoreEntitySet="Person_Rol">
+            <EndProperty Name="Person1">
+              <ScalarProperty Name="personaId" ColumnName="PersonpersonaId" />
+            </EndProperty>
+            <EndProperty Name="Rol">
+              <ScalarProperty Name="rolId" ColumnName="RolRolId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Rol_Permission" TypeName="AnalisisModel.Rol_Permission" StoreEntitySet="Rol_Permission">
+            <EndProperty Name="Permission">
+              <ScalarProperty Name="permisoId" ColumnName="PermissionpermisoId" />
+            </EndProperty>
+            <EndProperty Name="Rol">
+              <ScalarProperty Name="rolId" ColumnName="RolRolId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
