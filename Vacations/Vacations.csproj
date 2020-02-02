@@ -129,6 +129,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\ServeRequestController.cs" />
     <Compile Include="Day.cs">
       <DependentUpon>EFVacations.tt</DependentUpon>
     </Compile>
