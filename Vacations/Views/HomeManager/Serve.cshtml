@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Serve";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+
+    <form asp-page="./Serve" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Buscar por nombre:
+                <input type="text" name="SearchString" />
+                <input type="submit" value="Buscar" class="btn btn-primary" /> |
+                <a asp-page="./Index">Volver a la lista general</a>
+            </p>
+        </div>
+    </form>
+
+    <div>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Solicitante</th>
+                    <th scope="col">Fecha de solicitud</th>
+                    <th scope="col">Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>
+                        <a asp-page="./Ver más">Ver más</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>nn</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>nn</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>
