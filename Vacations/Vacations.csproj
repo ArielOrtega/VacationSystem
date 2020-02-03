@@ -159,6 +159,8 @@
     <Compile Include="HoliDays.cs">
       <DependentUpon>EFVacations.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DateModel.cs" />
+    <Compile Include="Models\Turn.cs" />
     <Compile Include="Payroll.cs">
       <DependentUpon>EFVacations.tt</DependentUpon>
     </Compile>
@@ -187,6 +189,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\mobiscroll.javascript.min.css" />
     <Content Include="EFVacations.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EFVacations.edmx</DependentUpon>
@@ -210,6 +213,8 @@
     <Content Include="EFVacations.edmx.diagram">
       <DependentUpon>EFVacations.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\icons_mobiscroll.ttf" />
+    <Content Include="fonts\icons_mobiscroll.woff" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -221,6 +226,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mobiscroll.javascript.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -242,10 +248,11 @@
     <Content Include="Views\ViewManager\_LayoutManager.cshtml" />
     <Content Include="Views\Request\Details.cshtml" />
     <Content Include="Views\Request\Serve.cshtml" />
+    <Content Include="Views\Request\Check.cshtml" />
+    <Content Include="Views\Request\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

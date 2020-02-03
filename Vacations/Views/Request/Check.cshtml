@@ -1,0 +1,35 @@
+﻿@model List<Vacations.Models.DateModel>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Vacation Request</h2>
+@using (Html.BeginForm("Check", "Requests", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table class="table">
+        @for (int index = 0; index < Model.Count; index++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(item => item[index].date)@Html.HiddenFor(item => item[index].date)
+                </td>
+                <td>
+                    @for (int index2 = 0; index2 < Model[index].turn.Count; index2++)
+                    {
+                        <div class="col-md-10">
+                            @Html.HiddenFor(modelItem => Model[index].turn[index2].id)
+                            @Html.CheckBoxFor(modelItem => Model[index].turn[index2].isChecked)@Html.HiddenFor(modelItem => Model[index].turn[index2].isChecked)
+                            @Html.DisplayFor(modelItem => Model[index].turn[index2].label)@Html.HiddenFor(modelItem => Model[index].turn[index2].label)
+                        </div>
+                    }
+
+                </td>
+            </tr>
+
+        }
+
+    </table>
+    <input type="submit" value="Submit" class="btn btn-default" />
+}
