@@ -30,10 +30,7 @@ namespace Vacations.Controllers
             return View();
         }
 
-        public ActionResult Serve()
-        {
-            return View();
-        }
+ 
 
     }
 }

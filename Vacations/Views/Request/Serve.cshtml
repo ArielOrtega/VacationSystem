@@ -10,14 +10,22 @@
     <title></title>
 </head>
 <body>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio", "Index", "HomeManager")</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Solicitudes</li>
+            <li class="breadcrumb-item active" aria-current="page">Atender Solicitudes</li>
+        </ol>
+    </nav>
 
+    <h2>Lista de solicitudes de vacaciones</h2>
     <form asp-page="./Serve" method="get">
         <div class="form-actions no-color">
             <p>
                 Buscar por nombre:
                 <input type="text" name="SearchString" />
                 <input type="submit" value="Buscar" class="btn btn-primary" /> |
-                <a asp-page="./Index">Volver a la lista general</a>
+                <a asp-page="./Index">@Html.ActionLink("Volver a la lista general", "Serve", "Request")</a>
             </p>
         </div>
     </form>
@@ -38,7 +46,7 @@
                     <td>Mark</td>
                     <td>Otto</td>
                     <td>
-                        <a asp-page="./Ver más">Ver más</a>
+                        <a asp-page="./Ver más">@Html.ActionLink("Ver más", "Details", "Request")</a>
                     </td>
                 </tr>
                 <tr>

@@ -3,47 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Vacations.Controllers
 {
-    public class ServeRequestController
-    {
-        Request request = new Request();
-        
+    public class ServeRequestController 
+     {
+     
 
-        public List<Request> GetIncomingRequest(int department, int personId)
-        {
-            List<Request> request = new List<Request>();
-
-            using (EntitiesVacation entitiesVacations = new EntitiesVacation())
-            {
-
-                var departamento = entitiesVacations.Departament
-                    .Where(id => id.PersonpersonaId == personId).FirstOrDefault();
-
-
-                /*List<Request> request = entitiesVacations.Request
-                    .Join(entitiesVacations.Person,
-                          dep => dep.departamentId == departamento.departamentId,
-                          per => per.personaId,
-                    (dep,per)=> new {dep,per});
-                
-          
-                var query = from article in db.Articles
-                            where article.Categories.Any(c => c.Category_ID == cat_id)
-                            select article
-                            */
-
-                
-            }
-
-            return request;
-
-        }
-
-
-        public Request NotifyEmail(Request requestToServe)
-
+        public Request notifyEmail(Request requestToServe)
         {
             var now = DateTime.Now;
             var updateDate = new DateTime(now.Year, now.Month, now.Day,
@@ -58,9 +26,6 @@ namespace Vacations.Controllers
                 request.state = requestToServe.state;
                 request.updatedAt = updateDate;
 
-                request.updatedBy = requestToServe.createdBy;
-
-
                 entitiesVacations.Entry(request).State = System.Data.Entity.EntityState.Modified;
                 entitiesVacations.SaveChanges();
 
@@ -70,19 +35,13 @@ namespace Vacations.Controllers
 
 
                 person = personData.GetPersonById(request.createdBy);
-
-
-                SendNotifyEmail(request, person.email);
-
+                sendNotifyEmail(request, person.email);
 
                 return request;
             }
         }
 
-
-
-        public String SendNotifyEmail(Request request, string recieverEmail)
-
+        public String sendNotifyEmail(Request request, string recieverEmail)
         {
             try
             {

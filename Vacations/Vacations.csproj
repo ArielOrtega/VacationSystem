@@ -130,6 +130,7 @@
     <Compile Include="Controllers\HomeManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\ServeRequestController.cs" />
     <Compile Include="Day.cs">
       <DependentUpon>EFVacations.tt</DependentUpon>
@@ -238,8 +239,9 @@
     <Content Include="Views\HomeManager\About.cshtml" />
     <Content Include="Views\HomeManager\Contact.cshtml" />
     <Content Include="Views\HomeManager\Index.cshtml" />
-    <Content Include="Views\HomeManager\Serve.cshtml" />
     <Content Include="Views\ViewManager\_LayoutManager.cshtml" />
+    <Content Include="Views\Request\Details.cshtml" />
+    <Content Include="Views\Request\Serve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
