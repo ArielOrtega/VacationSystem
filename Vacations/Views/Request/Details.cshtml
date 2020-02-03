@@ -8,6 +8,50 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title></title>
+    <script type="text/javascript">
+        function ConfirmMessege() {
+            //Ingresamos un mensaje a mostrar
+            var mensaje = confirm("¿Estás seguro (a) que deseas aceptar la solicitud?");
+            //Detectamos si el usuario acepto el mensaje
+            if (mensaje) {
+                alert("¡Gracias por aceptar!");
+            }
+            //Detectamos si el usuario denegó el mensaje
+            else {
+                alert("¡Haz denegado el mensaje!");
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        function DenyMessege() {
+            //Ingresamos un mensaje a mostrar
+            var mensaje = confirm("¿Estás seguro (a) que deseas rechazar la solicitud?");
+            //Detectamos si el usuario acepto el mensaje
+            if (mensaje) {
+                alert("¡Gracias por aceptar!");
+            }
+            //Detectamos si el usuario denegó el mensaje
+            else {
+                alert("¡Haz denegado el mensaje!");
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        function ConfirmReason() {
+            //Ingresamos un mensaje a mostrar
+            var mensaje = confirm("¿Estás seguro (a) que desea enviar este motivo?");
+            //Detectamos si el usuario acepto el mensaje
+            if (mensaje) {
+                alert("¡Gracias por aceptar!");
+            }
+            //Detectamos si el usuario denegó el mensaje
+            else {
+                alert("¡Haz denegado el mensaje!");
+            }
+        }
+    </script>
 </head>
 <body>
     <nav aria-label="breadcrumb">
@@ -20,39 +64,46 @@
     </nav>
     <h2>Detalles de la solicitud</h2>
     <div>
-        <table class="table table-hover table-dark">
+        <table class="table table-hover table-dark" WIDTH="">
             <thead>
+
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Solicitante</th>
-                    <th scope="col">Departamento</th>
-                    <th scope="col">Fecha de inicio</th>
-                    <th scope="col">Fecha final</th>
-                    <th scope="col">Días solicitados</th>
+                    <th scope="col" width="150">Solicitante</th>
+                    <th scope="col" width="150">Departamento</th>
+                    <th scope="col" width="150">Fecha de inicio</th>
+                    <th scope="col" width="150">Fecha final</th>
+                    <th scope="col" width="150">Días solicitados</th>
+                    <th scope="col" width="150">Motivo</th>
+                    <th scope="col" width="150">Estado</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>nn</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>nn</td>
+                    <td width="150">Paula Sánchez</td>
+                    <td width="150">TI</td>
+                    <td width="150">19-05-2020</td>
+                    <td width="150">26-05-2020</td>
+                    <td width="150">7</td>
+                    <td width="150" align="center">Me gustaria sacar vacaciones porque quiero ir a la playa de puntarenas a distrutar, con mi familia y amigos los 7 dias de vacaciones</td>
+                    <td width="150">
+                        <button type="button" class="alert-success" onclick="ConfirmMessege()">Aceptar</button>
+                        <button type="button" class="alert-danger" onclick="DenyMessege()">Rechazar</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
+        <form>
+            <div class="form-group">
+                <label for="TextArea" name="LabelTextAreaConfirm">Ingrese el motivo de confirmación de la solicitud</label>
+                <textarea class="form-control" id="TextareaConfirm" rows="3"</textarea>
+            </div>
+        </form>
+        <button type="button" class="bg-success" onclick="ConfirmReason()">Enviar</button>
+
     </div>
-    <button type="button" class="btn btn-dark">@Html.ActionLink("Atrás", "Serve", "Request")</button>
+    <FORM NAME="buttonbar">
+        <INPUT class="bg-primary" TYPE="button" VALUE="Atrás" onClick="history.back()" >
+    </FORM>
 </body>
 </html>
