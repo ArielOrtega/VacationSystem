@@ -9,14 +9,12 @@ namespace Vacations.Controllers
     public class ServeRequestController
     {
         Request request = new Request();
-
-
-<<<<<<< Updated upstream
-        public Request notifyEmail(Request requestToServe)
-=======
+        
 
         public List<Request> GetIncomingRequest(int department, int personId)
         {
+            List<Request> request = new List<Request>();
+
             using (EntitiesVacation entitiesVacations = new EntitiesVacation())
             {
 
@@ -36,16 +34,16 @@ namespace Vacations.Controllers
                             select article
                             */
 
-
-
+                
             }
 
+            return request;
 
         }
 
 
         public Request NotifyEmail(Request requestToServe)
->>>>>>> Stashed changes
+
         {
             var now = DateTime.Now;
             var updateDate = new DateTime(now.Year, now.Month, now.Day,
@@ -59,10 +57,9 @@ namespace Vacations.Controllers
                 request.description = requestToServe.description;
                 request.state = requestToServe.state;
                 request.updatedAt = updateDate;
-<<<<<<< Updated upstream
-=======
+
                 request.updatedBy = requestToServe.createdBy;
->>>>>>> Stashed changes
+
 
                 entitiesVacations.Entry(request).State = System.Data.Entity.EntityState.Modified;
                 entitiesVacations.SaveChanges();
