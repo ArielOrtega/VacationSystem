@@ -25,7 +25,17 @@
     </style>
 
 </head>
+
+
 <h2>Create</h2>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Home", "Index", "Home")</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Vacations</li>
+        <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Create", "Create", "Requests")</li>
+    </ol>
+</nav>
 
 @using (Html.BeginForm())
 {
@@ -63,28 +73,28 @@
 @section scripts{
     <script>
 
-            mobiscroll.settings = {
-                lang: 'es',                      // Specify language like: lang: 'pl' or omit setting to use default
-                theme: 'ios',                    // Specify theme like: theme: 'ios' or omit setting to use default
-                themeVariant: 'light'            // More info about themeVariant: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-themeVariant
-            };
+        mobiscroll.settings = {
+            lang: 'es',                      // Specify language like: lang: 'pl' or omit setting to use default
+            theme: 'ios',                    // Specify theme like: theme: 'ios' or omit setting to use default
+            themeVariant: 'light'            // More info about themeVariant: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-themeVariant
+        };
 
-            mobiscroll.calendar('#demo-multi-day', {
-                display: 'inline',               // Specify display mode like: display: 'bottom' or omit setting to use default
-                select: 'multiple'               // More info about select: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-select
-            });
+        mobiscroll.calendar('#demo-multi-day', {
+            display: 'inline',               // Specify display mode like: display: 'bottom' or omit setting to use default
+            select: 'multiple'               // More info about select: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-select
+        });
 
-            mobiscroll.calendar('#demo-max-days', {
-                display: 'inline',               // Specify display mode like: display: 'bottom' or omit setting to use default
-                select: 5,                       // More info about select: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-select
-                headerText: 'Pick up to 5 days'  // More info about headerText: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-headerText
-            });
+        mobiscroll.calendar('#demo-max-days', {
+            display: 'inline',               // Specify display mode like: display: 'bottom' or omit setting to use default
+            select: 5,                       // More info about select: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-select
+            headerText: 'Pick up to 5 days'  // More info about headerText: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-headerText
+        });
 
-            mobiscroll.calendar('#demo-counter', {
-                display: 'inline',               // Specify display mode like: display: 'bottom' or omit setting to use default
-                select: 'multiple',              // More info about select: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-select
-                counter: true                    // More info about counter: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-counter
-            });
+        mobiscroll.calendar('#demo-counter', {
+            display: 'inline',               // Specify display mode like: display: 'bottom' or omit setting to use default
+            select: 'multiple',              // More info about select: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-select
+            counter: true                    // More info about counter: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-counter
+        });
     </script>
 
 }
