@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
@@ -7,9 +8,71 @@ using System.Web.Mvc;
 
 namespace Vacations.Controllers
 {
-    public class ServeRequestController 
+    public class ServeRequestController : Controller
      {
-     
+
+        PersonController personController = new PersonController();
+
+        public ActionResult ViewManager(int requestId)
+        {
+            Request requestToFind = new Request();
+
+            if (ModelState.IsValid)
+            {
+               requestToFind = getRequestDetails(requestId);
+            }
+
+            return View(requestToFind);
+        }
+
+
+        public Request getRequestDetails(int requestId)
+        {
+            Request requestToFind = new Request();
+
+            using (EntitiesVacation entitiesVacation = new EntitiesVacation())
+            {
+                requestToFind = entitiesVacation.Request.Where(request => request.requestId == requestId).FirstOrDefault();
+            }
+
+            return requestToFind;
+        }
+
+            public List<Request> getIncomingRequest(int personId)
+        {
+
+            List<Request> requestList = new List<Request>();
+
+            using (EntitiesVacation entitiesVacation = new EntitiesVacation())
+            {
+                Departament department = entitiesVacation.Departament
+                              .Where(dep => dep.PersonpersonaId == personId).FirstOrDefault();
+
+
+                 requestList = (from request in entitiesVacation.Request
+                                   from person in entitiesVacation.Person1
+                                   from d in entitiesVacation.Departament
+                                   where d.departamentId == department.departamentId
+                                   select new Request
+                                   {
+                                       requestId = request.requestId,
+                                       state = request.state,
+                                       description = request.description,
+                                       daysRequestedCount = request.daysRequestedCount,
+                                       midDaysCount = request.midDaysCount,
+                                       PersonpersonaId = request.PersonpersonaId,
+                                       createdAt = request.createdAt,
+                                       updatedAt = request.updatedAt,
+                                       createdBy = request.createdBy,
+                                       updatedBy = request.updatedBy
+                                   }).ToList();
+              
+            }
+
+            return requestList;
+ 
+        }
+
 
         public Request notifyEmail(Request requestToServe)
         {
@@ -26,19 +89,15 @@ namespace Vacations.Controllers
                 request.state = requestToServe.state;
                 request.updatedAt = updateDate;
 
-                entitiesVacations.Entry(request).State = System.Data.Entity.EntityState.Modified;
+                entitiesVacations.Entry(request).State = EntityState.Modified;
                 entitiesVacations.SaveChanges();
-
-
-                var personData = new PersonController();
-                var person = new Person();
-
-
-                person = personData.GetPersonById(request.createdBy);
+                
+                var person = personController.GetPersonById(request.createdBy);
                 sendNotifyEmail(request, person.email);
 
                 return request;
             }
+
         }
 
         public String sendNotifyEmail(Request request, string recieverEmail)
@@ -47,8 +106,8 @@ namespace Vacations.Controllers
             {
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress("cuentaACrear");
-                message.To.Add(new MailAddress("receptor"));
+                message.From = new MailAddress("OnVacationSys@gmail.com");
+                message.To.Add(new MailAddress(recieverEmail));
                 message.Subject = "Respuesta de Solcitud de Vacaciones";
                 message.Body = request.description;
                 smtp.Port = 587;
@@ -56,7 +115,7 @@ namespace Vacations.Controllers
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Credentials = new System.Net.NetworkCredential("cuentaACrear", "cuentaACrearPass");
+                smtp.Credentials = new System.Net.NetworkCredential("OnVacationSys@gmail.com", "Vacation12345.");
                 smtp.Send(message);
                 return "exito";
             }
@@ -69,3 +128,5 @@ namespace Vacations.Controllers
 
     }
 }
+ 
+ 

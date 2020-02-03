@@ -1,4 +1,4 @@
-/*
+
 2020Analisis: "1.0.0"
 info:
   description: 
@@ -10,6 +10,9 @@ info:
     url:   "https://www.microsoft.com/es-es/sql-server/sql-server-2017-pricing"
 
  /*CREACIÓN DE ESQUEMAS*/
+
+ Create database 2020Analisis
+
 USE 2020Analisis
 GO
 CREATE SCHEMA VACATIONS;
