@@ -160,6 +160,7 @@
       <DependentUpon>EFVacations.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DateModel.cs" />
+    <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\Turn.cs" />
     <Compile Include="Payroll.cs">
       <DependentUpon>EFVacations.tt</DependentUpon>
