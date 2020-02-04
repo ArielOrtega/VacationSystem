@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Vacations.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class ProfileController : Controller
     {
         // GET: Profile

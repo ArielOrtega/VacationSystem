@@ -31,13 +31,13 @@ namespace Vacations.Controllers
         [HttpPost]
         public ActionResult Login(string user, string pass)
         {
-            Person person = new Person();
+            Person1 person = new Person1();
 
 
             using (var context = new EntitiesVacation())
             {
-                person = context.Person
-                    .Where(personItem => personItem.password == pass).FirstOrDefault();
+                person = context.Person1
+                    .Where(personItem => personItem.password == pass && personItem.name == user).FirstOrDefault();
             }
            
             if (person != null)
