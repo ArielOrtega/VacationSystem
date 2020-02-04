@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Vacations.Models.RequestDTO>
+
+@{
     ViewBag.Title = "Serve";
 }
 
@@ -25,7 +27,7 @@
                 Buscar por nombre:
                 <input type="text" name="SearchString" />
                 <input type="submit" value="Buscar" class="btn btn-primary" /> |
-                <a asp-page="./Index">@Html.ActionLink("Volver a la lista general", "Serve", "Request")</a>
+                <a asp-page="./Index">@Html.ActionLink("Volver a la lista general", "Serve", "ServeRequest")</a>
             </p>
         </div>
     </form>
@@ -42,18 +44,22 @@
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>
-                        <a asp-page="./Ver más">@Html.ActionLink("Ver más", "Details", "Request")</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>nn</td>
+
+                    @foreach (var item in ViewData.Model)
+                    {
+                        <li>
+                            @Html.DisplayFor(modelItem => item.PersonpersonaId)
+                        </li>
+                        <li>
+                            @Html.DisplayFor(modelItem => item.createdAt)
+                        </li>
+                        <li>
+                            @Html.DisplayFor(modelItem => item.description)
+                        </li>
+                        <li>
+                            <a asp-page="./Ver más">@Html.ActionLink("Ver más", "Details", "ServeRequest")</a>
+                        </li>
+                    }
                 </tr>
                 <tr>
                     <th scope="row">3</th>
