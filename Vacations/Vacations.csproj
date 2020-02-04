@@ -161,6 +161,7 @@
       <DependentUpon>EFVacations.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DateModel.cs" />
+    <Compile Include="Models\RequestDTO.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\Turn.cs" />
     <Compile Include="Payroll.cs">
@@ -248,8 +249,8 @@
     <Content Include="Views\HomeManager\Contact.cshtml" />
     <Content Include="Views\HomeManager\Index.cshtml" />
     <Content Include="Views\ViewManager\_LayoutManager.cshtml" />
-    <Content Include="Views\Request\Details.cshtml" />
-    <Content Include="Views\Request\Serve.cshtml" />
+    <Content Include="Views\ServeRequest\Details.cshtml" />
+    <Content Include="Views\ServeRequest\Serve.cshtml" />
     <Content Include="Views\Request\Check.cshtml" />
     <Content Include="Views\Request\Create.cshtml" />
     <Content Include="Views\HomeManager\Login.cshtml" />
