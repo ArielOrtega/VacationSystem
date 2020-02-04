@@ -14,14 +14,13 @@ namespace Vacations.Controllers
 
         PersonController personController = new PersonController();
 
-        public ActionResult Details(int requestId)
+        public ActionResult Details(int idRequest)
         {
             Request requestToFind = new Request();
-
-            if (ModelState.IsValid)
-            {
-                requestToFind = getRequestDetails(requestId);
-            }
+            
+            
+                requestToFind = getRequestDetails(idRequest);
+            
 
 
             return View(requestToFind);
@@ -30,7 +29,7 @@ namespace Vacations.Controllers
         public ActionResult Serve()
         {
             List<RequestDTO> requestToList = new List<RequestDTO>();
-            requestToList = getIncomingRequest(305150456);
+            requestToList = getIncomingRequest(309940167);
 
 
             ViewData.Model = requestToList;
@@ -45,7 +44,8 @@ namespace Vacations.Controllers
 
             using (EntitiesVacation entitiesVacation = new EntitiesVacation())
             {
-                requestToFind = entitiesVacation.Request.Where(request => request.requestId == requestId).FirstOrDefault();
+                requestToFind = entitiesVacation.Request
+                    .Where(request => request.requestId == requestId).FirstOrDefault();
             }
 
             return requestToFind;
@@ -61,6 +61,8 @@ namespace Vacations.Controllers
             {
                 department = entitiesVacation.Departament
                               .Where(dep => dep.PersonpersonaId == personId).FirstOrDefault();
+
+                int idDepartamento = department.departamentId;
 
                 if (department != null)
                 {

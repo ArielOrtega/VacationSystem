@@ -1,5 +1,9 @@
-﻿@{
-     ViewBag.Title = "Details";
+﻿@model Vacations.Models.RequestDTO
+
+@{
+    ViewBag.Title = "Details";
+
+    int id = int.Parse(Request["idRequest"]);
 }
 
 <!DOCTYPE html>
@@ -58,7 +62,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio", "Index", "HomeManager")</a></li>
             <li class="breadcrumb-item active" aria-current="page">Solicitudes</li>
-            <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Atender Solicitudes","Serve", "ServeRequest")</li>
+            <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Atender Solicitudes", "Serve", "ServeRequest")</li>
             <li class="breadcrumb-item active" aria-current="page">Detalles</li>
         </ol>
     </nav>
@@ -78,18 +82,26 @@
                 </tr>
             </thead>
             <tbody>
+                
                 <tr>
-                    <td width="150">Paula Sánchez</td>
-                    <td width="150">TI</td>
-                    <td width="150">19-05-2020</td>
-                    <td width="150">26-05-2020</td>
-                    <td width="150">7</td>
-                    <td width="150" align="center">Me gustaria sacar vacaciones porque quiero ir a la playa de puntarenas a distrutar, con mi familia y amigos los 7 dias de vacaciones</td>
-                    <td width="150">
-                        <button type="button" class="alert-success" onclick="ConfirmMessege()">Aceptar</button>
-                        <button type="button" class="alert-danger" onclick="DenyMessege()">Rechazar</button>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PersonpersonaId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.createdAt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                        <a asp-page="./Ver más">@Html.ActionLink("Ver más", "Details", "ServeRequest")</a>
+                    </td>
+                    <td>
+                    <button type="button" class="alert-success" onclick="ConfirmMessege()">Aceptar</button>
+                    <button type="button" class="alert-danger" onclick="DenyMessege()">Rechazar</button>
                     </td>
                 </tr>
+                
             </tbody>
         </table>
 
@@ -103,7 +115,7 @@
 
     </div>
     <FORM NAME="buttonbar">
-        <INPUT class="bg-primary" TYPE="button" VALUE="Atrás" onClick="history.back()" >
+        <INPUT class="bg-primary" TYPE="button" VALUE="Atrás" onClick="history.back()">
     </FORM>
 </body>
 </html>

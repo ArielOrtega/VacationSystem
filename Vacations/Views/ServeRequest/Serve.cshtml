@@ -43,29 +43,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-
                     @foreach (var item in ViewData.Model)
+       
                     {
-                        <li>
-                            @Html.DisplayFor(modelItem => item.PersonpersonaId)
-                        </li>
-                        <li>
-                            @Html.DisplayFor(modelItem => item.createdAt)
-                        </li>
-                        <li>
-                            @Html.DisplayFor(modelItem => item.description)
-                        </li>
-                        <li>
-                            <a asp-page="./Ver más">@Html.ActionLink("Ver más", "Details", "ServeRequest")</a>
-                        </li>
-                    }
-                </tr>
                 <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>nn</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PersonpersonaId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.createdAt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                        <a asp-page="./Ver más">
+                            @Html.ActionLink("Ver más", "Details", "ServeRequest"))
+
+                        </a>
+                    </td>
                 </tr>
+                    }
+                
+
             </tbody>
         </table>
 
