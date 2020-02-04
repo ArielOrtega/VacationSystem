@@ -21,6 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+
                     <li>@Html.ActionLink("Index", "Index", "HomeManager")</li>
                     <li>@Html.ActionLink("Acerca de", "About", "HomeManager")</li>
                     <li>@Html.ActionLink("Vacaciones", "Vacations", "HomeManager")</li>
@@ -32,6 +33,12 @@
                             <a class="dropdown-item" href="#">@Html.ActionLink("Atender", "Serve", "Request")</a>
                         </div>
                     </li>
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a href="/Home/Logout">Log out</a></li>
+                        }
+                    }
                     <li>@Html.ActionLink("Contacto", "Contact", "HomeManager")</li>
                 </ul>
             </div>

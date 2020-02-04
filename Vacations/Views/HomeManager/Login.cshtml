@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    launch
+    <title></title>
+</head>
+<body>
+    <div class="col s12" style="height:100%;">
+        @using (Html.BeginForm("Login", "Person", FormMethod.Post))
+        {
+            <input placeholder="Password" type="text" name="contrasenna" />
+            <input class="btn waves-effect waves-light" type="submit" name="boton" value="Log in" />
+        }
+    </div>
+</body>
+</html>
