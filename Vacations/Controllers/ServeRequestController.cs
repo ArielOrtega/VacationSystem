@@ -16,7 +16,7 @@ namespace Vacations.Controllers
 
         public ActionResult Details(int requestId)
         {
-            Request requestToFind = new Request();
+            RequestDTO requestToFind = new RequestDTO();
             
             requestToFind = getRequestDetails(requestId);
 
@@ -36,15 +36,42 @@ namespace Vacations.Controllers
             return View();
         }
 
-
-        public Request getRequestDetails(int requestId)
+        public ActionResult SendRequestAnswer(int requestIdToServe, string description, string state)
         {
-            Request requestToFind = new Request();
+            notifyEmail (requestIdToServe,  description,  state);
+
+            return View();
+        }
+
+
+        public RequestDTO getRequestDetails(int requestId)
+        {
+            RequestDTO requestToFind = new RequestDTO();
 
             using (EntitiesVacation entitiesVacation = new EntitiesVacation())
             {
-                requestToFind = entitiesVacation.Request
-                    .Where(request => request.requestId == requestId).FirstOrDefault();
+                /* requestToFind = entitiesVacation.Request
+                     .Where(request => request.requestId == requestId).FirstOrDefault();
+                     */
+                requestToFind = (from d in entitiesVacation.Departament
+                                 from person in d.Person1
+                                 join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
+                                 where request.requestId == requestId
+                                 select new RequestDTO
+                                 {
+                                     requestId = request.requestId,
+                                     state = request.state,
+                                     description = request.description,
+                                     daysRequestedCount = request.daysRequestedCount,
+                                     midDaysCount = request.midDaysCount,
+                                     PersonpersonaId = request.PersonpersonaId,
+                                     createdAt = request.createdAt,
+                                     updatedAt = request.updatedAt,
+                                     createdBy = request.createdBy,
+                                     updatedBy = request.updatedBy,
+                                     personName = person.name + " " + person.lastName,
+                                     departmentName = d.name
+                                 }).FirstOrDefault();
             }
 
             return requestToFind;
@@ -80,7 +107,8 @@ namespace Vacations.Controllers
                                        createdAt = request.createdAt,
                                        updatedAt = request.updatedAt,
                                        createdBy = request.createdBy,
-                                       updatedBy = request.updatedBy
+                                       updatedBy = request.updatedBy,
+                                       personName = person.name + " " + person.lastName,
                                    }).ToList();
                 }
 
@@ -89,9 +117,9 @@ namespace Vacations.Controllers
             return requestList;
 
         }
+        
 
-
-        public Request notifyEmail(Request requestToServe)
+        public Request notifyEmail(int  requestIdToServe, string description, string state)
         {
             var now = DateTime.Now;
             var updateDate = new DateTime(now.Year, now.Month, now.Day,
@@ -100,10 +128,10 @@ namespace Vacations.Controllers
             using (EntitiesVacation entitiesVacations = new EntitiesVacation())
             {
                 Request request = entitiesVacations.Request.Where
-                    (id => id.requestId == requestToServe.requestId).FirstOrDefault();
+                    (id => id.requestId == requestIdToServe).FirstOrDefault();
 
-                request.description = requestToServe.description;
-                request.state = requestToServe.state;
+                request.description = description;
+                request.state = state;
                 request.updatedAt = updateDate;
 
                 entitiesVacations.Entry(request).State = EntityState.Modified;

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
-    Request request = ViewData.Model;
+    Vacations.Models.RequestDTO request = ViewData.Model;
 }
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
             var mensaje = confirm("¿Estás seguro (a) que deseas aceptar la solicitud?");
             //Detectamos si el usuario acepto el mensaje
             if (mensaje) {
-                alert("¡Gracias por aceptar!");
+                var reason = prompt("Ingrese el motivo por el cual acepta la solicitud", "");
             }
             //Detectamos si el usuario denegó el mensaje
             else {
@@ -32,7 +32,7 @@
             var mensaje = confirm("¿Estás seguro (a) que deseas rechazar la solicitud?");
             //Detectamos si el usuario acepto el mensaje
             if (mensaje) {
-                alert("¡Gracias por aceptar!");
+                var reason = prompt("Ingrese el motivo por el cual rechaza la solicitud", "");
             }
             //Detectamos si el usuario denegó el mensaje
             else {
@@ -73,30 +73,21 @@
                 <tr>
                     <th scope="col" width="150">Solicitante</th>
                     <th scope="col" width="150">Departamento</th>
-                    <th scope="col" width="150">Fecha de inicio</th>
-                    <th scope="col" width="150">Fecha final</th>
                     <th scope="col" width="150">Días solicitados</th>
                     <th scope="col" width="150">Motivo</th>
                     <th scope="col" width="150">Estado</th>
                 </tr>
             </thead>
-            <tbody>
-                
+            <tbody>   
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => request.createdBy)
+                        @Html.DisplayFor(modelItem => request.personName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => request.departmentName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => request.daysRequestedCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.description)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => request.description)

@@ -24,6 +24,8 @@ namespace Vacations.Models
         public System.DateTime updatedAt { get; set; }
         public int createdBy { get; set; }
         public int updatedBy { get; set; }
+        public string personName { get; set; }
+        public string departmentName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Day> Day { get; set; }
