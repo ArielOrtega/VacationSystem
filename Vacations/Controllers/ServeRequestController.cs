@@ -14,12 +14,12 @@ namespace Vacations.Controllers
 
         PersonController personController = new PersonController();
 
-        public ActionResult Details(int idRequest)
+        public ActionResult Details()
         {
             Request requestToFind = new Request();
             
             
-                requestToFind = getRequestDetails(idRequest);
+                requestToFind = getRequestDetails(1);
             
 
 
@@ -66,10 +66,10 @@ namespace Vacations.Controllers
 
                 if (department != null)
                 {
-                    requestList = (from request in entitiesVacation.Request
-                                   from person in entitiesVacation.Person1
-                                   from d in entitiesVacation.Departament
-                                   where d.departamentId == department.departamentId
+                    requestList = (from d in entitiesVacation.Departament
+                                   from person in d.Person1
+                                   join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
+                                   where d.departamentId == idDepartamento
                                    select new RequestDTO
                                    {
                                        requestId = request.requestId,
