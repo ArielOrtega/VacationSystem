@@ -14,16 +14,15 @@ namespace Vacations.Controllers
 
         PersonController personController = new PersonController();
 
-        public ActionResult Details()
+        public ActionResult Details(int requestId)
         {
             Request requestToFind = new Request();
             
-            
-                requestToFind = getRequestDetails(1);
-            
+            requestToFind = getRequestDetails(requestId);
 
+            ViewData.Model = requestToFind;
 
-            return View(requestToFind);
+            return View();
         }
 
         public ActionResult Serve()

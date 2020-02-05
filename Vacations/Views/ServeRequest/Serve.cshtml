@@ -58,14 +58,14 @@
                     </td>
                     <td>
                         <a asp-page="./Ver más">
-                            @Html.ActionLink("Ver más", "Details", "ServeRequest"))
+                            @Html.ActionLink("Details", "Details", new { requestId = item.requestId })
 
                         </a>
                     </td>
                 </tr>
                     }
                 
-
+                 
             </tbody>
         </table>
 

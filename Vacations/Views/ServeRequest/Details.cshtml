@@ -1,9 +1,8 @@
-﻿@model Vacations.Models.RequestDTO
+﻿
 
 @{
     ViewBag.Title = "Details";
-
-    int id = int.Parse(Request["idRequest"]);
+    Request request = ViewData.Model;
 }
 
 <!DOCTYPE html>
@@ -85,20 +84,26 @@
                 
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PersonpersonaId)
+                        @Html.DisplayFor(modelItem => request.createdBy)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.createdAt)
+                        @Html.DisplayFor(modelItem => request.daysRequestedCount)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.description)
+                        @Html.DisplayFor(modelItem => request.description)
                     </td>
                     <td>
-                        <a asp-page="./Ver más">@Html.ActionLink("Ver más", "Details", "ServeRequest")</a>
+                        @Html.DisplayFor(modelItem => request.)
                     </td>
                     <td>
-                    <button type="button" class="alert-success" onclick="ConfirmMessege()">Aceptar</button>
-                    <button type="button" class="alert-danger" onclick="DenyMessege()">Rechazar</button>
+                        @Html.DisplayFor(modelItem => request.description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => request.description)
+                    </td>
+                    <td>
+                        <button type="button" class="alert-success" onclick="ConfirmMessege()">Aceptar</button>
+                        <button type="button" class="alert-danger" onclick="DenyMessege()">Rechazar</button>
                     </td>
                 </tr>
                 
