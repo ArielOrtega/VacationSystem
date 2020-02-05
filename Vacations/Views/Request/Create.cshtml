@@ -77,7 +77,6 @@
         var holiDaysDate = @Html.Raw(Json.Encode(ViewBag.holidates));
         //var date = new Date(parseInt(holiDaysDate.counters.date));
         var freedays = []
-        alert(@ViewBag.holidates.Count)
         @foreach (var d in @ViewBag.holidates)
         {
             @:freedays.push("@d");
