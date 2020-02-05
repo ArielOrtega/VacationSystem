@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Create";
+    HoliDays[] holiDaysDate = ViewBag.holidaysDate as HoliDays[];
+    DateTime[] holidates = ViewBag.holidates as DateTime[];
 }
 <head>
     <meta charset="utf-8">
@@ -72,6 +74,14 @@
 
 @section scripts{
     <script>
+        var holiDaysDate = @Html.Raw(Json.Encode(ViewBag.holidates));
+        //var date = new Date(parseInt(holiDaysDate.counters.date));
+        var freedays = []
+        alert(@ViewBag.holidates.Count)
+        @foreach (var d in @ViewBag.holidates)
+        {
+            @:freedays.push("@d");
+        }
 
         mobiscroll.settings = {
             lang: 'es',                      // Specify language like: lang: 'pl' or omit setting to use default
@@ -81,7 +91,8 @@
 
         mobiscroll.calendar('#demo-multi-day', {
             display: 'inline',               // Specify display mode like: display: 'bottom' or omit setting to use default
-            select: 'multiple'               // More info about select: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-select
+            select: 'multiple',               // More info about select: https://docs.mobiscroll.com/4-10-2/javascript/calendar#opt-select
+            invalid: freedays
         });
 
         mobiscroll.calendar('#demo-max-days', {

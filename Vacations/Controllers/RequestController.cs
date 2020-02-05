@@ -27,6 +27,15 @@ namespace Vacations.Controllers
         public ActionResult Create()
         {
             ViewBag.PersonpersonaId = new SelectList(db.Person1, "personaId", "name");
+            List<HoliDays> holiDays = db.HoliDays.ToList();
+            List<DateTime> holidates = new List<DateTime>();
+            for (int i = 0; i < holiDays.Count; i++)
+            {
+                holidates.Add(holiDays.ElementAt(i).date);
+            }
+            ViewData["holidaysDate"] = holiDays;
+            ViewBag.holidaysDate = holiDays;
+            ViewBag.holidates = holidates;
             return View();
         }
 
@@ -41,6 +50,8 @@ namespace Vacations.Controllers
             if (ModelState.IsValid)
             {
                 List<DateModel> daysRequested = StringToList(days);
+                db.Request.Add(request);
+                db.SaveChanges();
                 TempData["days"] = daysRequested.ToList();
 
             }
