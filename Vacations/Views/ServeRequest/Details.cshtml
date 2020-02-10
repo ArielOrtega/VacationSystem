@@ -1,5 +1,8 @@
-﻿@{
-     ViewBag.Title = "Details";
+﻿
+
+@{
+    ViewBag.Title = "Details";
+    Vacations.Models.RequestDTO request = ViewData.Model;
 }
 
 <!DOCTYPE html>
@@ -14,7 +17,7 @@
             var mensaje = confirm("¿Estás seguro (a) que deseas aceptar la solicitud?");
             //Detectamos si el usuario acepto el mensaje
             if (mensaje) {
-                alert("¡Gracias por aceptar!");
+                var reason = prompt("Ingrese el motivo por el cual acepta la solicitud", "");
             }
             //Detectamos si el usuario denegó el mensaje
             else {
@@ -29,7 +32,7 @@
             var mensaje = confirm("¿Estás seguro (a) que deseas rechazar la solicitud?");
             //Detectamos si el usuario acepto el mensaje
             if (mensaje) {
-                alert("¡Gracias por aceptar!");
+                var reason = prompt("Ingrese el motivo por el cual rechaza la solicitud", "");
             }
             //Detectamos si el usuario denegó el mensaje
             else {
@@ -58,38 +61,43 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio", "Index", "HomeManager")</a></li>
             <li class="breadcrumb-item active" aria-current="page">Solicitudes</li>
-            <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Atender Solicitudes","Serve", "Request")</li>
+            <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Atender Solicitudes", "Serve", "ServeRequest")</li>
             <li class="breadcrumb-item active" aria-current="page">Detalles</li>
         </ol>
     </nav>
     <h2>Detalles de la solicitud</h2>
     <div>
-        <table class="table table-hover table-dark" WIDTH="">
+        <table class="table table-hover table-dark">
             <thead>
 
                 <tr>
                     <th scope="col" width="150">Solicitante</th>
                     <th scope="col" width="150">Departamento</th>
-                    <th scope="col" width="150">Fecha de inicio</th>
-                    <th scope="col" width="150">Fecha final</th>
                     <th scope="col" width="150">Días solicitados</th>
                     <th scope="col" width="150">Motivo</th>
                     <th scope="col" width="150">Estado</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody>   
                 <tr>
-                    <td width="150">Paula Sánchez</td>
-                    <td width="150">TI</td>
-                    <td width="150">19-05-2020</td>
-                    <td width="150">26-05-2020</td>
-                    <td width="150">7</td>
-                    <td width="150" align="center">Me gustaria sacar vacaciones porque quiero ir a la playa de puntarenas a distrutar, con mi familia y amigos los 7 dias de vacaciones</td>
-                    <td width="150">
+                    <td>
+                        @Html.DisplayFor(modelItem => request.personName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => request.departmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => request.daysRequestedCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => request.description)
+                    </td>
+                    <td>
                         <button type="button" class="alert-success" onclick="ConfirmMessege()">Aceptar</button>
                         <button type="button" class="alert-danger" onclick="DenyMessege()">Rechazar</button>
                     </td>
                 </tr>
+                
             </tbody>
         </table>
 
@@ -103,7 +111,7 @@
 
     </div>
     <FORM NAME="buttonbar">
-        <INPUT class="bg-primary" TYPE="button" VALUE="Atrás" onClick="history.back()" >
+        <INPUT class="bg-primary" TYPE="button" VALUE="Atrás" onClick="history.back()">
     </FORM>
 </body>
 </html>

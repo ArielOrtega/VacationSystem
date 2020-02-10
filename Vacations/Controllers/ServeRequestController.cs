@@ -5,55 +5,98 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using Vacations.Models;
 
 namespace Vacations.Controllers
 {
     public class ServeRequestController : Controller
-     {
+    {
 
         PersonController personController = new PersonController();
 
-        public ActionResult ViewManager(int requestId)
+        public ActionResult Details(int requestId)
         {
-            Request requestToFind = new Request();
+            RequestDTO requestToFind = new RequestDTO();
+            
+            requestToFind = getRequestDetails(requestId);
 
-            if (ModelState.IsValid)
-            {
-               requestToFind = getRequestDetails(requestId);
-            }
+            ViewData.Model = requestToFind;
 
-            return View(requestToFind);
+            return View();
+        }
+
+        public ActionResult Serve()
+        {
+            List<RequestDTO> requestToList = new List<RequestDTO>();
+            requestToList = getIncomingRequest(309940167);
+
+
+            ViewData.Model = requestToList;
+
+            return View();
+        }
+
+        public ActionResult SendRequestAnswer(int requestIdToServe, string description, string state)
+        {
+            notifyEmail (requestIdToServe,  description,  state);
+
+            return View();
         }
 
 
-        public Request getRequestDetails(int requestId)
+        public RequestDTO getRequestDetails(int requestId)
         {
-            Request requestToFind = new Request();
+            RequestDTO requestToFind = new RequestDTO();
 
             using (EntitiesVacation entitiesVacation = new EntitiesVacation())
             {
-                requestToFind = entitiesVacation.Request.Where(request => request.requestId == requestId).FirstOrDefault();
+                /* requestToFind = entitiesVacation.Request
+                     .Where(request => request.requestId == requestId).FirstOrDefault();
+                     */
+                requestToFind = (from d in entitiesVacation.Departament
+                                 from person in d.Person1
+                                 join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
+                                 where request.requestId == requestId
+                                 select new RequestDTO
+                                 {
+                                     requestId = request.requestId,
+                                     state = request.state,
+                                     description = request.description,
+                                     daysRequestedCount = request.daysRequestedCount,
+                                     midDaysCount = request.midDaysCount,
+                                     PersonpersonaId = request.PersonpersonaId,
+                                     createdAt = request.createdAt,
+                                     updatedAt = request.updatedAt,
+                                     createdBy = request.createdBy,
+                                     updatedBy = request.updatedBy,
+                                     personName = person.name + " " + person.lastName,
+                                     departmentName = d.name
+                                 }).FirstOrDefault();
             }
 
             return requestToFind;
         }
 
-            public List<Request> getIncomingRequest(int personId)
+        public List<RequestDTO> getIncomingRequest(int personId)
         {
 
-            List<Request> requestList = new List<Request>();
+            List<RequestDTO> requestList = new List<RequestDTO>();
+            Departament department = new Departament();
 
             using (EntitiesVacation entitiesVacation = new EntitiesVacation())
             {
-                Departament department = entitiesVacation.Departament
+                department = entitiesVacation.Departament
                               .Where(dep => dep.PersonpersonaId == personId).FirstOrDefault();
 
+                int idDepartamento = department.departamentId;
 
-                 requestList = (from request in entitiesVacation.Request
-                                   from person in entitiesVacation.Person1
-                                   from d in entitiesVacation.Departament
-                                   where d.departamentId == department.departamentId
-                                   select new Request
+                if (department != null)
+                {
+                    requestList = (from d in entitiesVacation.Departament
+                                   from person in d.Person1
+                                   join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
+                                   where d.departamentId == idDepartamento
+                                   select new RequestDTO
                                    {
                                        requestId = request.requestId,
                                        state = request.state,
@@ -64,17 +107,19 @@ namespace Vacations.Controllers
                                        createdAt = request.createdAt,
                                        updatedAt = request.updatedAt,
                                        createdBy = request.createdBy,
-                                       updatedBy = request.updatedBy
+                                       updatedBy = request.updatedBy,
+                                       personName = person.name + " " + person.lastName,
                                    }).ToList();
-              
+                }
+
             }
 
             return requestList;
- 
+
         }
+        
 
-
-        public Request notifyEmail(Request requestToServe)
+        public Request notifyEmail(int  requestIdToServe, string description, string state)
         {
             var now = DateTime.Now;
             var updateDate = new DateTime(now.Year, now.Month, now.Day,
@@ -83,15 +128,15 @@ namespace Vacations.Controllers
             using (EntitiesVacation entitiesVacations = new EntitiesVacation())
             {
                 Request request = entitiesVacations.Request.Where
-                    (id => id.requestId == requestToServe.requestId).FirstOrDefault();
+                    (id => id.requestId == requestIdToServe).FirstOrDefault();
 
-                request.description = requestToServe.description;
-                request.state = requestToServe.state;
+                request.description = description;
+                request.state = state;
                 request.updatedAt = updateDate;
 
                 entitiesVacations.Entry(request).State = EntityState.Modified;
                 entitiesVacations.SaveChanges();
-                
+
                 var person = personController.GetPersonById(request.createdBy);
                 sendNotifyEmail(request, person.email);
 
@@ -128,5 +173,4 @@ namespace Vacations.Controllers
 
     }
 }
- 
- 
+

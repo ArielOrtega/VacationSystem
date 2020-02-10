@@ -1,0 +1,7 @@
+If sending email doesn't work verify
+if allow to less secure apps is on 
+ * https://myaccount.google.com/lesssecureapps
+
+if the path doesn't work 
+update nuGet by typing this in package manager console 
+ * Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
