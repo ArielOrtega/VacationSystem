@@ -29,7 +29,7 @@ namespace Vacations.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string user, string pass)
+        public ActionResult Login(string email, string pass)
         {
             Person1 person = new Person1();
             string rol;
@@ -38,7 +38,7 @@ namespace Vacations.Controllers
             using (var context = new EntitiesVacation())
             {
                 person = context.Person1
-                    .Where(personItem => personItem.password == pass && personItem.name == user ).FirstOrDefault();
+                    .Where(personItem => personItem.password == pass && personItem.email == email).FirstOrDefault();
                    // rol = person.Rol.FirstOrDefault().name;
             }
 
@@ -54,11 +54,9 @@ namespace Vacations.Controllers
             }
             else
             {
-                return RedirectToAction("Index", new { message = "incorrect username or password" });
+                return RedirectToAction("Index", new { message = "Correo o contraseña incorrecta" });
             }
 
-
-            return View();
         }
 
         public ActionResult Logout()
