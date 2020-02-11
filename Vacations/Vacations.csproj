@@ -254,11 +254,14 @@
     <Content Include="Views\Request\Check.cshtml" />
     <Content Include="Views\Request\Create.cshtml" />
     <Content Include="Views\HomeManager\Login.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutHome.cshtml" />
+    <Content Include="Views\Shared\_LayoutColab.cshtml" />
+    <Content Include="Views\Shared\_LayoutSupervisor.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Profile\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Login_\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

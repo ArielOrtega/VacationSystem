@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+
+    string rol = (string)this.Session["rolUsuario"];
+    string name = (string)this.Session["UserName"];
+    if (rol == null)
+    {
+        Layout = "~/Views/Shared/_LayoutHome.cshtml";
+        <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
+    }
+    else
+    {
+        String header = string.Empty;
+
+        if (rol.Equals("Employee"))
+        {
+            header = "~/Views/Shared/_LayoutColab.cshtml";
+        }
+        else if (rol.Equals("Manager"))
+        {
+           header = "~/Views/Shared/_LayoutSupervisor.cshtml";
+        }
+        else if (rol.Equals("Administrator"))
+        {
+            header = "~/Views/Shared/_LayoutAdmin.cshtml";
+        }
+        Session["Header"] = header;
+        Layout = header;
+
+        <h2>Bienvenido(a) @rol (a) @name</h2>
+    }
+}
+
+

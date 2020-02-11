@@ -10,7 +10,7 @@ namespace Vacations.Controllers
     public class ProfileController : Controller
     {
         // GET: Profile
-        public ActionResult Index()
+        public ActionResult Profile()
         {
             return View();
         }

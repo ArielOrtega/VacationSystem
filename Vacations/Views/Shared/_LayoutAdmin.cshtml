@@ -33,13 +33,14 @@
                             <a class="dropdown-item" href="#">@Html.ActionLink("Atender", "Serve", "ServeRequest")</a>
                         </div>
                     </li>
+
+                    <li>@Html.ActionLink("Contacto", "Contact", "HomeManager")</li>
                     @{
-                        if (User.Identity.IsAuthenticated)
+                        if (this.Session["Header"] != null)
                         {
                             <li><a href="/Home/Logout">Log out</a></li>
                         }
                     }
-                    <li>@Html.ActionLink("Contacto", "Contact", "HomeManager")</li>
                 </ul>
             </div>
         </div>
@@ -57,3 +58,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

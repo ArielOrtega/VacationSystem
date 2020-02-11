@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Contact";
+    if(this.Session["Header"] == null) {Layout = "~/Views/Shared/_LayoutHome.cshtml";}
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>

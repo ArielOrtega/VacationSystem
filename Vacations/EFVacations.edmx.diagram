@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fe66dfb6fa024e10bf64fd39e44fe35c" Name="Diagram1">
+      <Diagram DiagramId="fe66dfb6fa024e10bf64fd39e44fe35c" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="AnalisisModel.Person" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AnalisisModel.Day" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnalisisModel.Day" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="AnalisisModel.Departament" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="AnalisisModel.HoliDays" Width="1.5" PointX="9.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="AnalisisModel.Payroll" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />

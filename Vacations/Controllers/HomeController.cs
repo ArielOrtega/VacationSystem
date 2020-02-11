@@ -32,32 +32,38 @@ namespace Vacations.Controllers
         public ActionResult Login(string user, string pass)
         {
             Person1 person = new Person1();
+            string rol;
 
 
             using (var context = new EntitiesVacation())
             {
                 person = context.Person1
-                    .Where(personItem => personItem.password == pass && personItem.name == user).FirstOrDefault();
+                    .Where(personItem => personItem.password == pass && personItem.name == user ).FirstOrDefault();
+                   // rol = person.Rol.FirstOrDefault().name;
             }
-           
+
+
             if (person != null)
             {
+                Session["UserName"] = person.name;
+                // Session["rolUsuario"] = rol;
+                Session["rolUsuario"] = "Administrator";
+
                 FormsAuthentication.SetAuthCookie(person.name, true);
-                return RedirectToAction("Index", "Profile");
+                return RedirectToAction("Profile", "Profile");
             }
             else
             {
-                return RedirectToAction("Index", new { message = "User not found" });
+                return RedirectToAction("Index", new { message = "incorrect username or password" });
             }
 
 
             return View();
         }
 
-        [Authorize]
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
+            this.Session.Clear();
             return RedirectToAction("Index");
         }
 

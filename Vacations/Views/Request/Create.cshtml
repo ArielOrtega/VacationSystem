@@ -1,6 +1,8 @@
 ﻿@model Vacations.Request
-
 @{
+    Layout = (string)this.Session["Header"];
+
+
     ViewBag.Title = "Create";
     HoliDays[] holiDaysDate = ViewBag.holidaysDate as HoliDays[];
     DateTime[] holidates = ViewBag.holidates as DateTime[];
@@ -51,7 +53,7 @@
                         <div class="mbsc-col-sm-12 mbsc-col-md-4">
                             <div class="mbsc-form-group">
                                 <div class="mbsc-form-group-title">Select days to request</div>
-                                @Html.HiddenFor(model => model.days, htmlAttributes: new { @id = "demo-multi-day" })
+                                @Html.HiddenFor(model => model.Day, htmlAttributes: new { @id = "demo-multi-day" })
 
                             </div>
                         </div>

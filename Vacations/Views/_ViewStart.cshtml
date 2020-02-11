@@ -1,3 +1,19 @@
 ﻿@{
-    Layout = "~/Views/ViewManager/_LayoutManager.cshtml";
+    string rol = (string)this.Session["rolUsuario"];
+
+    if(rol == null){
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else if (rol.Equals("colaborador"))
+    {
+        Layout = "~/Views/Shared/_LayoutColab.cshtml";
+    }
+    else if (rol.Equals("supervisor"))
+    {
+        Layout = "~/Views/Shared/_LayoutCoordinador.cshtml";
+    }
+    else if (rol.Equals("admin"))
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
 }

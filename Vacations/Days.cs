@@ -12,30 +12,23 @@ namespace Vacations
     using System;
     using System.Collections.Generic;
     
-    public partial class Request
+    public partial class Days
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Request()
+        public Days()
         {
-            this.Day = new HashSet<Day>();
-            this.VacationInfo = new HashSet<VacationInfo>();
+            this.HoliDays = new HashSet<HoliDays>();
         }
     
-        public int requestId { get; set; }
-        public string state { get; set; }
-        public string description { get; set; }
-        public int daysRequestedCount { get; set; }
-        public int midDaysCount { get; set; }
-        public int PersonpersonaId { get; set; }
+        public System.DateTime day1 { get; set; }
         public System.DateTime createdAt { get; set; }
         public System.DateTime updatedAt { get; set; }
         public int createdBy { get; set; }
         public int updatedBy { get; set; }
+        public Nullable<int> isHoliday { get; set; }
     
+        public virtual Request Request { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Day> Day { get; set; }
-        public virtual Person1 Person1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VacationInfo> VacationInfo { get; set; }
+        public virtual ICollection<HoliDays> HoliDays { get; set; }
     }
 }
