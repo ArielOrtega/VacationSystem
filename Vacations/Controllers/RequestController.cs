@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Vacations;
 using Vacations.Models;
+
 
 namespace Vacations.Controllers
 {
@@ -50,8 +52,8 @@ namespace Vacations.Controllers
             if (ModelState.IsValid)
             {
                 List<DateModel> daysRequested = StringToList(days);
-                db.Request.Add(request);
-                db.SaveChanges();
+                // db.Request.Add(request);
+                //db.SaveChanges();
                 TempData["days"] = daysRequested.ToList();
 
             }
@@ -93,37 +95,75 @@ namespace Vacations.Controllers
             List<DateTime> afternoons = new List<DateTime>();
             List<DateTime> fulldays = new List<DateTime>();
             DateModel dateModel;
-            List<Turn> turn;
+            List<TurnModel> turn;
+
+            List<Day> daysRequested = new List<Day>();
+            Day day = new Day();
+            int fullDaysCount = 0;
+            int midDaysCount = 0;
 
             for (int index = 0; index < model.Count; index++)
             {
                 dateModel = new DateModel();
-                turn = new List<Turn>();
+                turn = new List<TurnModel>();
                 dateModel = model.ElementAt(index);
                 turn = dateModel.turn;
 
+                day = new Day();
+
                 if (turn.ElementAt(0).isChecked && turn.ElementAt(1).isChecked)
                 {
+                    day.turn = 1;
+                    fullDaysCount++;
                     fulldays.Add(dateModel.date);
+
                 }
                 else if (turn.ElementAt(0).isChecked && !turn.ElementAt(1).isChecked)
                 {
+                    day.turn = 2;
+                    midDaysCount++;
                     mornings.Add(dateModel.date);
+
                 }
                 else if (!turn.ElementAt(0).isChecked && turn.ElementAt(1).isChecked)
                 {
+                    day.turn = 3;
+                    midDaysCount++;
                     afternoons.Add(dateModel.date);
                 }
-                else
-                {
-                    return View();
-                }
-
+                day.day1 = dateModel.date;
+                day.requestId = 3;
+                day.createdAt = DateTime.Now;
+                day.updatedAt = DateTime.Now;
+                day.createdBy = 0;
+                day.updatedBy = 0;
+                //db.Day.Add(day);
+                System.Diagnostics.Debug.WriteLine(day.day1);
+                daysRequested.Add(day);
             };
-            //if (ModelState.IsValid)
-            //{
-            //db.Request.Add(request);
-            //db.SaveChanges();
+
+            Request request = new Request("sent", "TESTING", daysRequested.Count(), midDaysCount, 3, DateTime.Now, DateTime.Now, 3, 0, daysRequested);
+
+            try
+            {
+                db.Request.Add(request);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
             //TempData["days"] = daysRequested.ToList();
             //}
             //return View(request);

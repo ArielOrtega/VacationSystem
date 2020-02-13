@@ -162,7 +162,7 @@
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\RequestDTO.cs" />
     <Compile Include="Models\RequestModel.cs" />
-    <Compile Include="Models\Turn.cs" />
+    <Compile Include="Models\TurnModel.cs" />
     <Compile Include="Payroll.cs">
       <DependentUpon>EFVacations.tt</DependentUpon>
     </Compile>
