@@ -39,7 +39,7 @@ namespace Vacations.Controllers
             {
                 person = context.Person1
                     .Where(personItem => personItem.password == pass && personItem.email == email).FirstOrDefault();
-                   // rol = person.Rol.FirstOrDefault().name;
+                    //rol = person.Rol.FirstOrDefault().name;
             }
 
 
