@@ -45,7 +45,7 @@ namespace Vacations.Controllers
 
             if (person != null)
             {
-                Session["UserName"] = person.name;
+                Session["userName"] = person.name;
                 // Session["rolUsuario"] = rol;
                 Session["rolUsuario"] = "Administrator";
 

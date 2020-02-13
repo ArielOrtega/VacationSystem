@@ -3,7 +3,7 @@
     ViewBag.Title = "Profile";
 
     string rol = (string)this.Session["rolUsuario"];
-    string name = (string)this.Session["UserName"];
+    string name = (string)this.Session["userName"];
     if (rol == null)
     {
         Layout = "~/Views/Shared/_LayoutHome.cshtml";
