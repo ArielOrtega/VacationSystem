@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Vacations.Models
 {
-    public class Turn
+    public class TurnModel
     {
-        public Turn()
+        public TurnModel()
         {
         }
         public int id { get; set; }

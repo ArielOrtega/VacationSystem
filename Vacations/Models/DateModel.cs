@@ -10,14 +10,14 @@ namespace Vacations.Models
     {
         public DateModel()
         {
-            turn = new List<Turn>();
-            turn.Add(new Turn()
+            turn = new List<TurnModel>();
+            turn.Add(new TurnModel()
             {
                 id = 1,
                 label = "Morning",
                 isChecked = false //On the add view, no genres are selected by default
             });
-            turn.Add(new Turn()
+            turn.Add(new TurnModel()
             {
                 id = 2,
                 label = "Afternoon",
@@ -27,7 +27,7 @@ namespace Vacations.Models
         }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime date { get; set; }
-        public List<Turn> turn { get; set; }//1 morning, 2 afternoon, 3 complete day
+        public List<TurnModel> turn { get; set; }//1 morning, 2 afternoon, 3 complete day
 
     }
 }

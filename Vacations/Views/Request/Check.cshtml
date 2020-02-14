@@ -1,12 +1,12 @@
 ﻿@model List<Vacations.Models.DateModel>
 
 @{
-    Layout = (string)this.Session["Header"];
+
     ViewBag.Title = "Create";
 }
 
 <h2>Vacation Request</h2>
-@using (Html.BeginForm("Check", "Requests", FormMethod.Post))
+@using (Html.BeginForm("Check", "Request", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <table class="table">
@@ -32,5 +32,5 @@
         }
 
     </table>
-    <input type="submit" value="Submit" class="btn btn-default" />
+    <input type="submit" value="Enviar" class="btn btn-default" />
 }

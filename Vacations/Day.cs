@@ -19,7 +19,9 @@ namespace Vacations
         {
             this.HoliDays = new HashSet<HoliDays>();
         }
-    
+
+        public int turn { get; set; }
+        public int requestId { get; set; }
         public System.DateTime day1 { get; set; }
         public System.DateTime createdAt { get; set; }
         public System.DateTime updatedAt { get; set; }

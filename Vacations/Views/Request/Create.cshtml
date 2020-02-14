@@ -1,9 +1,8 @@
 ﻿@model Vacations.Request
 @{
-    Layout = (string)this.Session["Header"];
+    /**Layout = (string)this.Session["Header"];**/
 
-
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear";
     HoliDays[] holiDaysDate = ViewBag.holidaysDate as HoliDays[];
     DateTime[] holidates = ViewBag.holidates as DateTime[];
 }
@@ -35,9 +34,9 @@
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Home", "Index", "Home")</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vacations</li>
-        <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Create", "Create", "Requests")</li>
+        <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio", "Index", "Home")</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Vacaciones</li>
+        <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Crear", "Create", "Requests")</li>
     </ol>
 </nav>
 
@@ -45,15 +44,15 @@
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        <h2>Vacation Request</h2>
+        <h2>Solicitud de Vacaciones</h2>
         <div mbsc-page class="demo-multiple-day-selection">
             <div mbsc-form>
                 <div class="mbsc-grid">
                     <div class="mbsc-row">
                         <div class="mbsc-col-sm-12 mbsc-col-md-4">
                             <div class="mbsc-form-group">
-                                <div class="mbsc-form-group-title">Select days to request</div>
-                                @Html.HiddenFor(model => model.Day, htmlAttributes: new { @id = "demo-multi-day" })
+                                <div class="mbsc-form-group-title">Seleccione los días a solicitar</div>
+                                @Html.HiddenFor(model => model.days, htmlAttributes: new { @id = "demo-multi-day" })
 
                             </div>
                         </div>
@@ -63,7 +62,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Confirm" class="btn btn-default" id="btnConfirm" />
+                <input type="submit" value="Confirmar" class="btn btn-default" id="btnConfirm" />
             </div>
         </div>
     </div>
@@ -71,7 +70,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver a la lista", "Index")
 </div>
 
 @section scripts{
