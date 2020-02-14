@@ -1,11 +1,11 @@
 ﻿@model List<Vacations.Models.DateModel>
 
 @{
-
+    Layout = (string)this.Session["Header"];
     ViewBag.Title = "Create";
 }
 
-<h2>Vacation Request</h2>
+<h2>Solicitud de Vacaciones</h2>
 @using (Html.BeginForm("Check", "Request", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

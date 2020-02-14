@@ -14,19 +14,25 @@ namespace Vacations.Models
             turn.Add(new TurnModel()
             {
                 id = 1,
-                label = "Morning",
+                label = "Mañana",
                 isChecked = false //On the add view, no genres are selected by default
             });
             turn.Add(new TurnModel()
             {
                 id = 2,
-                label = "Afternoon",
+                label = "Tarde",
+                isChecked = false //On the add view, no genres are selected by default
+            });
+            turn.Add(new TurnModel()
+            {
+                id = 3,
+                label = "Noche",
                 isChecked = false //On the add view, no genres are selected by default
             });
 
         }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-        public DateTime date { get; set; }
+        public System.DateTime date { get; set; }
         public List<TurnModel> turn { get; set; }//1 morning, 2 afternoon, 3 complete day
 
     }

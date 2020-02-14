@@ -46,7 +46,8 @@ namespace Vacations.Controllers
             if (person != null)
             {
                 Session["userName"] = person.name;
-                // Session["rolUsuario"] = rol;
+                Session["idUser"] = person.personaId;
+                Session["identification"] = person.identification;
                 Session["rolUsuario"] = "Administrator";
 
                 FormsAuthentication.SetAuthCookie(person.name, true);

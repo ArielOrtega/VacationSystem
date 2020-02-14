@@ -1,6 +1,6 @@
 ﻿@model Vacations.Request
 @{
-    /**Layout = (string)this.Session["Header"];**/
+    Layout = (string)this.Session["Header"];
 
     ViewBag.Title = "Crear";
     HoliDays[] holiDaysDate = ViewBag.holidaysDate as HoliDays[];
@@ -36,7 +36,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio", "Index", "Home")</a></li>
         <li class="breadcrumb-item active" aria-current="page">Vacaciones</li>
-        <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Crear", "Create", "Requests")</li>
+        <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Crear", "Create", "Request")</li>
     </ol>
 </nav>
 

@@ -91,9 +91,6 @@ namespace Vacations.Controllers
         public ActionResult Check(List<DateModel> model)
         {
             //FALTA CONTROL DE ERRORES, VALIDACIONES
-            List<DateTime> mornings = new List<DateTime>();
-            List<DateTime> afternoons = new List<DateTime>();
-            List<DateTime> fulldays = new List<DateTime>();
             DateModel dateModel;
             List<TurnModel> turn;
 
@@ -111,39 +108,51 @@ namespace Vacations.Controllers
 
                 day = new Day();
 
-                if (turn.ElementAt(0).isChecked && turn.ElementAt(1).isChecked)
+                if (turn.ElementAt(0).isChecked && turn.ElementAt(1).isChecked && turn.ElementAt(2).isChecked)
                 {
                     day.turn = 1;
                     fullDaysCount++;
-                    fulldays.Add(dateModel.date);
 
                 }
-                else if (turn.ElementAt(0).isChecked && !turn.ElementAt(1).isChecked)
+                else if (turn.ElementAt(0).isChecked && !turn.ElementAt(1).isChecked && !turn.ElementAt(2).isChecked)
                 {
                     day.turn = 2;
                     midDaysCount++;
-                    mornings.Add(dateModel.date);
 
                 }
-                else if (!turn.ElementAt(0).isChecked && turn.ElementAt(1).isChecked)
+                else if (!turn.ElementAt(0).isChecked && turn.ElementAt(1).isChecked && !turn.ElementAt(2).isChecked)
                 {
                     day.turn = 3;
                     midDaysCount++;
-                    afternoons.Add(dateModel.date);
                 }
+                else if (!turn.ElementAt(0).isChecked && !turn.ElementAt(1).isChecked && turn.ElementAt(2).isChecked)
+                {
+                    day.turn = 4;
+                    midDaysCount++;
+                }
+
+
+                //OBTENER LA SESIÓN DEL EMPLEADO
                 day.day1 = dateModel.date;
-                day.requestId = 3;
+                day.requestId = (int)Session["idUser"];
                 day.createdAt = DateTime.Now;
                 day.updatedAt = DateTime.Now;
-                day.createdBy = 0;
-                day.updatedBy = 0;
-                //db.Day.Add(day);
+                day.createdBy = (int)Session["identification"];
+                day.updatedBy = (int)Session["identification"];
+
+
                 System.Diagnostics.Debug.WriteLine(day.day1);
+                System.Diagnostics.Debug.WriteLine(day.requestId);
+                System.Diagnostics.Debug.WriteLine(day.turn);
                 daysRequested.Add(day);
+
+
+                db.Day.Add(day);
+
             };
 
-            Request request = new Request("sent", "TESTING", daysRequested.Count(), midDaysCount, 3, DateTime.Now, DateTime.Now, 3, 0, daysRequested);
-
+            Request request = new Request("sent", "TESTING", fullDaysCount, midDaysCount, (int)Session["idUser"], DateTime.Now, DateTime.Now, (int)Session["identification"], (int)Session["identification"], daysRequested);
+           
             try
             {
                 db.Request.Add(request);
