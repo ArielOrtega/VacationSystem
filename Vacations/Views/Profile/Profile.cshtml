@@ -19,7 +19,7 @@
         }
         else if (rol.Equals("Supervisor"))
         {
-           header = "~/Views/Shared/_LayoutSupervisor.cshtml";
+            header = "~/Views/Shared/_LayoutSupervisor.cshtml";
         }
         else if (rol.Equals("Administrador"))
         {
@@ -27,6 +27,12 @@
         }
         Session["Header"] = header;
         Layout = header;
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio >", "Index", "Home")</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Perfil ></li>
+            </ol>
+        </nav>
 
         <h2>Bienvenido(a) @rol (a) @name</h2>
     }

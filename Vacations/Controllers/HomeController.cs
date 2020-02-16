@@ -72,43 +72,35 @@ namespace Vacations.Controllers
         [HttpPost]
         public ActionResult Login(string email, string pass)
         {
-            if (email != string.Empty && pass != string.Empty)
+            if (ValidateEmail(email))
             {
-                if (ValidateEmail(email))
-                {
-                    Person1 person = new Person1();
-                    pass = Sha256Encription(pass);
+                Person1 person = new Person1();
+                pass = Sha256Encription(pass);
 
-                    using (var context = new EntitiesVacation())
-                    {
-                        person = context.Person1
-                            .Where(personItem => personItem.password == pass && personItem.email == email).FirstOrDefault();
+                using (var context = new EntitiesVacation())
+                {
+                    person = context.Person1
+                        .Where(personItem => personItem.password == pass && personItem.email == email).FirstOrDefault();
                 
-                        if (person != null) {
-                            Session["userName"] = person.name;
-                            Session["idUser"] = person.personaId;
-                            Session["identification"] = person.identification;
-                            Session["rolUsuario"] = person.Rol.name;
+                    if (person != null) {
+                        Session["userName"] = person.name;
+                        Session["idUser"] = person.personaId;
+                        Session["identification"] = person.identification;
+                        Session["rolUsuario"] = person.Rol.name;
 
-                            FormsAuthentication.SetAuthCookie(person.name, true);
-                            return RedirectToAction("Profile", "Profile");
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", new { message = "Correo o contraseña incorrectos" });
-                        }
+                        FormsAuthentication.SetAuthCookie(person.name, true);
+                        return RedirectToAction("Profile", "Profile");
                     }
-                }
-                else
-                {
-                    return RedirectToAction("Index", new { message = "Debe ingresar una direccion de correo válida" });
+                    else
+                    {
+                        return RedirectToAction("Index", new { message = "Correo o contraseña incorrectos" });
+                    }
                 }
             }
             else
             {
-                return RedirectToAction("Index", new { message = "Debe completar todos los campos" });
+                return RedirectToAction("Index", new { message = "Debe ingresar una direccion de correo válida" });
             }
-
         }
 
         public ActionResult Logout()
