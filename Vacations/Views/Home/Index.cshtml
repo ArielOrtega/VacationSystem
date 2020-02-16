@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
     if (this.Session["Header"] == null) { Layout = "~/Views/Shared/_LayoutHome.cshtml"; }
+    else { Layout = (string)this.Session["Header"]; }
 }
 <!--
 <div class="jumbotron">

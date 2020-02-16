@@ -13,15 +13,15 @@
     {
         String header = string.Empty;
 
-        if (rol.Equals("Employee"))
+        if (rol.Equals("Colaborador"))
         {
             header = "~/Views/Shared/_LayoutColab.cshtml";
         }
-        else if (rol.Equals("Manager"))
+        else if (rol.Equals("Supervisor"))
         {
            header = "~/Views/Shared/_LayoutSupervisor.cshtml";
         }
-        else if (rol.Equals("Administrator"))
+        else if (rol.Equals("Administrador"))
         {
             header = "~/Views/Shared/_LayoutAdmin.cshtml";
         }

@@ -2,17 +2,17 @@
     string rol = (string)this.Session["rolUsuario"];
 
     if(rol == null){
-        Layout = "~/Views/Shared/_Layout.cshtml";
+        Layout = "~/Views/Shared/_LayoutHome.cshtml";
     }
-    else if (rol.Equals("colaborador"))
+    else if (rol.Equals("Colaborador"))
     {
         Layout = "~/Views/Shared/_LayoutColab.cshtml";
     }
-    else if (rol.Equals("supervisor"))
+    else if (rol.Equals("Supervisor"))
     {
-        Layout = "~/Views/Shared/_LayoutCoordinador.cshtml";
+        Layout = "~/Views/Shared/_LayoutSupervisor.cshtml";
     }
-    else if (rol.Equals("admin"))
+    else if (rol.Equals("Administrador"))
     {
         Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     }

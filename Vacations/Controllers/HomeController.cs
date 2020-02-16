@@ -32,31 +32,26 @@ namespace Vacations.Controllers
         public ActionResult Login(string email, string pass)
         {
             Person1 person = new Person1();
-            string rol;
-
-
             using (var context = new EntitiesVacation())
             {
                 person = context.Person1
                     .Where(personItem => personItem.password == pass && personItem.email == email).FirstOrDefault();
-                rol = person.Rol.name;
-            }
+                
+                if (person != null) {
+                    Session["userName"] = person.name;
+                    Session["idUser"] = person.personaId;
+                    Session["identification"] = person.identification;
+                    Session["rolUsuario"] = person.Rol.name;
 
-
-            if (person != null)
-            {
-                Session["userName"] = person.name;
-                Session["idUser"] = person.personaId;
-                Session["identification"] = person.identification;
-                Session["rolUsuario"] = rol;
-
-                FormsAuthentication.SetAuthCookie(person.name, true);
-                return RedirectToAction("Profile", "Profile");
+                    FormsAuthentication.SetAuthCookie(person.name, true);
+                    return RedirectToAction("Profile", "Profile");
+                }
+                else
+                {
+                    return RedirectToAction("Index", new { message = "Correo o contraseña incorrecta" });
+                }
             }
-            else
-            {
-                return RedirectToAction("Index", new { message = "Correo o contraseña incorrecta" });
-            }
+            
 
         }
 
