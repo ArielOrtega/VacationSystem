@@ -25,7 +25,6 @@ namespace Vacations
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Day> Day { get; set; }
         public virtual DbSet<Departament> Departament { get; set; }
         public virtual DbSet<HoliDays> HoliDays { get; set; }

@@ -14,23 +14,15 @@ namespace Vacations
     
     public partial class Day
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Day()
-        {
-            this.HoliDays = new HashSet<HoliDays>();
-        }
-
-        public int turn { get; set; }
-        public int requestId { get; set; }
+        public int dayId { get; set; }
         public System.DateTime day1 { get; set; }
+        public int turn { get; set; }
         public System.DateTime createdAt { get; set; }
         public System.DateTime updatedAt { get; set; }
         public int createdBy { get; set; }
         public int updatedBy { get; set; }
-        public Nullable<int> isHoliday { get; set; }
+        public int RequestrequestId { get; set; }
     
         public virtual Request Request { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoliDays> HoliDays { get; set; }
     }
 }

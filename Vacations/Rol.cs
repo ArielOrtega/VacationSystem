@@ -24,7 +24,6 @@ namespace Vacations
         public int rolId { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public int PersonpersonaId { get; set; }
         public System.DateTime createdAt { get; set; }
         public System.DateTime updatedAt { get; set; }
         public int createdBy { get; set; }

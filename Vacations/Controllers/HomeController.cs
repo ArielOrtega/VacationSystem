@@ -39,7 +39,7 @@ namespace Vacations.Controllers
             {
                 person = context.Person1
                     .Where(personItem => personItem.password == pass && personItem.email == email).FirstOrDefault();
-                    //rol = person.Rol.FirstOrDefault().name;
+                rol = person.Rol.name;
             }
 
 
@@ -48,7 +48,7 @@ namespace Vacations.Controllers
                 Session["userName"] = person.name;
                 Session["idUser"] = person.personaId;
                 Session["identification"] = person.identification;
-                Session["rolUsuario"] = "Administrator";
+                Session["rolUsuario"] = rol;
 
                 FormsAuthentication.SetAuthCookie(person.name, true);
                 return RedirectToAction("Profile", "Profile");

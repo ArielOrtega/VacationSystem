@@ -134,7 +134,7 @@ namespace Vacations.Controllers
 
                 //OBTENER LA SESIÓN DEL EMPLEADO
                 day.day1 = dateModel.date;
-                day.requestId = (int)Session["idUser"];
+                day.RequestrequestId = (int)Session["idUser"];
                 day.createdAt = DateTime.Now;
                 day.updatedAt = DateTime.Now;
                 day.createdBy = (int)Session["identification"];
@@ -142,7 +142,7 @@ namespace Vacations.Controllers
 
 
                 System.Diagnostics.Debug.WriteLine(day.day1);
-                System.Diagnostics.Debug.WriteLine(day.requestId);
+                System.Diagnostics.Debug.WriteLine(day.RequestrequestId);
                 System.Diagnostics.Debug.WriteLine(day.turn);
                 daysRequested.Add(day);
 
@@ -151,31 +151,31 @@ namespace Vacations.Controllers
 
             };
 
-            Request request = new Request("sent", "TESTING", fullDaysCount, midDaysCount, (int)Session["idUser"], DateTime.Now, DateTime.Now, (int)Session["identification"], (int)Session["identification"], daysRequested);
+            //Request request = new Request("sent", "TESTING", fullDaysCount, midDaysCount, (int)Session["idUser"], DateTime.Now, DateTime.Now, (int)Session["identification"], (int)Session["identification"], daysRequested);
            
-            try
-            {
-                db.Request.Add(request);
-                db.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
-
-            //TempData["days"] = daysRequested.ToList();
+            //try
+            //{
+            //    db.Request.Add(request);
+            //    db.SaveChanges();
             //}
-            //return View(request);
+            //catch (DbEntityValidationException e)
+            //{
+            //    foreach (var eve in e.EntityValidationErrors)
+            //    {
+            //        System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+            //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+            //        foreach (var ve in eve.ValidationErrors)
+            //        {
+            //            System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+            //                ve.PropertyName, ve.ErrorMessage);
+            //        }
+            //    }
+            //    throw;
+            //}
+
+            ////TempData["days"] = daysRequested.ToList();
+            ////}
+            ////return View(request);
             return null;
 
         }
