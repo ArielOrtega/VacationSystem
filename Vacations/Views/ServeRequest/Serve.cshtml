@@ -1,6 +1,12 @@
 ﻿@model List<Vacations.Models.RequestDTO>
 
 @{
+    if (this.Session["rolUsuario"] == null)
+    {
+        Layout = "~/Views/Shared/_LayoutHome.cshtml";
+        <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
+    }
+
     Layout = (string)this.Session["Header"];
     ViewBag.Title = "Serve";
 }
@@ -43,26 +49,26 @@
                 </tr>
             </thead>
             <tbody>
-                    @foreach (var item in ViewData.Model)
-       
-                    {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.personName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.createdAt)
-                    </td>
-                    <td>
-                        <a asp-page="./Ver más">
-                            @Html.ActionLink("Details", "Details", new { requestId = item.requestId })
+                @foreach (var item in ViewData.Model)
 
-                        </a>
-                    </td>
-                </tr>
-                    }
-                
-                 
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.personName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.createdAt)
+                        </td>
+                        <td>
+                            <a asp-page="./Ver más">
+                                @Html.ActionLink("Details", "Details", new { requestId = item.requestId })
+
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+
             </tbody>
         </table>
 

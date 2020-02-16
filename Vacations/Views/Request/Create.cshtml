@@ -1,5 +1,11 @@
 ﻿@model Vacations.Request
 @{
+    if (this.Session["rolUsuario"] == null)
+    {
+        Layout = "~/Views/Shared/_LayoutHome.cshtml";
+        <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
+    }
+
     Layout = (string)this.Session["Header"];
 
     ViewBag.Title = "Crear";
