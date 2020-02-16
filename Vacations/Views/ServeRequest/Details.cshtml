@@ -1,16 +1,19 @@
 ﻿
 
 @{
+    ViewBag.Title = "Details";
+    Vacations.Models.RequestDTO request = ViewData.Model;
+    Layout = (string)this.Session["Header"];
     if (this.Session["rolUsuario"] == null)
     {
         Layout = "~/Views/Shared/_LayoutHome.cshtml";
         <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
     }
+    else
+    {
 
-    Layout = (string)this.Session["Header"];
-    ViewBag.Title = "Details";
-    Vacations.Models.RequestDTO request = ViewData.Model;
-}
+
+
 
 <!DOCTYPE html>
 
@@ -122,3 +125,5 @@
     </FORM>
 </body>
 </html>
+        }
+    }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Vacations.Controllers
 {
@@ -28,10 +30,30 @@ namespace Vacations.Controllers
 
             return View();
         }
+
+        public String Sha256Encription(String data)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(data));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
         [HttpPost]
         public ActionResult Login(string email, string pass)
         {
             Person1 person = new Person1();
+            pass = Sha256Encription(pass);
+
             using (var context = new EntitiesVacation())
             {
                 person = context.Person1

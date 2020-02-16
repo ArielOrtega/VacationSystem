@@ -1,20 +1,19 @@
 ﻿@model List<Vacations.Models.DateModel>
 
 @{
-
+    ViewBag.Title = "Create";
+    Layout = (string)this.Session["Header"];
     if (this.Session["rolUsuario"] == null)
     {
         Layout = "~/Views/Shared/_LayoutHome.cshtml";
         <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
     }
-
-    Layout = (string)this.Session["Header"];
-    ViewBag.Title = "Create";
-}
+    else
+    {
 
 <h2>Solicitud de Vacaciones</h2>
-@using (Html.BeginForm("Check", "Request", FormMethod.Post))
-{
+        using (Html.BeginForm("Check", "Request", FormMethod.Post))
+        {
     @Html.AntiForgeryToken()
     <table class="table">
         @for (int index = 0; index < Model.Count; index++)
@@ -40,4 +39,6 @@
 
     </table>
     <input type="submit" value="Enviar" class="btn btn-default" />
-}
+            }
+        }
+    }
