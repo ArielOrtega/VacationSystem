@@ -133,57 +133,54 @@
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\ServeRequestController.cs" />
     <Compile Include="Day.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
     <Compile Include="Departament.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
-    <Compile Include="EFVacations.Context.cs">
+    <Compile Include="EFVacation.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EFVacations.Context.tt</DependentUpon>
+      <DependentUpon>EFVacation.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EFVacations.cs">
+    <Compile Include="EFVacation.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
-    <Compile Include="EFVacations.Designer.cs">
+    <Compile Include="EFVacation.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EFVacations.edmx</DependentUpon>
+      <DependentUpon>EFVacation.edmx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HoliDays.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\RequestDTO.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\TurnModel.cs" />
     <Compile Include="Payroll.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
     <Compile Include="Permission.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Person.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
     <Compile Include="Person1.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
     <Compile Include="Rol.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
     <Compile Include="VacationInfo.cs">
-      <DependentUpon>EFVacations.tt</DependentUpon>
+      <DependentUpon>EFVacation.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -192,15 +189,15 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\mobiscroll.javascript.min.css" />
-    <Content Include="EFVacations.Context.tt">
+    <Content Include="EFVacation.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EFVacations.edmx</DependentUpon>
-      <LastGenOutput>EFVacations.Context.cs</LastGenOutput>
+      <DependentUpon>EFVacation.edmx</DependentUpon>
+      <LastGenOutput>EFVacation.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EFVacations.tt">
+    <Content Include="EFVacation.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EFVacations.edmx</DependentUpon>
-      <LastGenOutput>EFVacations.cs</LastGenOutput>
+      <DependentUpon>EFVacation.edmx</DependentUpon>
+      <LastGenOutput>EFVacation.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -208,15 +205,15 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="EFVacations.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EFVacations.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="EFVacations.edmx.diagram">
-      <DependentUpon>EFVacations.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\icons_mobiscroll.ttf" />
     <Content Include="fonts\icons_mobiscroll.woff" />
+    <EntityDeploy Include="EFVacation.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EFVacation.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EFVacation.edmx.diagram">
+      <DependentUpon>EFVacation.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

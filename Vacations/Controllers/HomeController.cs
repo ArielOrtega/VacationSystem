@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Vacations.Controllers
 {
@@ -28,35 +31,76 @@ namespace Vacations.Controllers
 
             return View();
         }
-        [HttpPost]
-        public ActionResult Login(string email, string pass)
+
+        public String Sha256Encription(String data) // encriptar contraseña
         {
-            Person1 person = new Person1();
-            string rol;
-
-
-            using (var context = new EntitiesVacation())
+            using (SHA256 sha256Hash = SHA256.Create())
             {
-                person = context.Person1
-                    .Where(personItem => personItem.password == pass && personItem.email == email).FirstOrDefault();
-                    //rol = person.Rol.FirstOrDefault().name;
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(data));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
             }
-
-
-            if (person != null)
+        }
+        private Boolean ValidateEmail(String email)//validar email mediante expresion regular
+        {
+            String expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
             {
-                Session["userName"] = person.name;
-                // Session["rolUsuario"] = rol;
-                Session["rolUsuario"] = "Administrator";
-
-                FormsAuthentication.SetAuthCookie(person.name, true);
-                return RedirectToAction("Profile", "Profile");
+                if (Regex.Replace(email, expresion, String.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return RedirectToAction("Index", new { message = "Correo o contraseña incorrecta" });
+                return false;
             }
+        }
 
+        [HttpPost]
+        public ActionResult Login(string email, string pass)
+        {
+            if (ValidateEmail(email))
+            {
+                Person1 person = new Person1();
+                pass = Sha256Encription(pass);
+
+                using (var context = new EntitiesVacation())
+                {
+                    person = context.Person1
+                        .Where(personItem => personItem.password == pass && personItem.email == email).FirstOrDefault();
+                
+                    if (person != null) {
+                        Session["userName"] = person.name;
+                        Session["idUser"] = person.personaId;
+                        Session["identification"] = person.identification;
+                        Session["rolUsuario"] = person.Rol.name;
+
+                        FormsAuthentication.SetAuthCookie(person.name, true);
+                        return RedirectToAction("Profile", "Profile");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", new { message = "Correo o contraseña incorrectos" });
+                    }
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", new { message = "Debe ingresar una direccion de correo válida" });
+            }
         }
 
         public ActionResult Logout()

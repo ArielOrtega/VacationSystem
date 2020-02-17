@@ -21,8 +21,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
-                    <li>@Html.ActionLink("Index", "Index", "HomeManager")</li>
                     <li>@Html.ActionLink("Acerca de", "About", "HomeManager")</li>
                     <li>@Html.ActionLink("Vacaciones", "Create", "Request")</li>
                     <li class="nav-item dropdown">
@@ -48,7 +46,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Sistema de vacaciones</p>
         </footer>
     </div>
 

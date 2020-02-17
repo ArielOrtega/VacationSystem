@@ -22,8 +22,5 @@ namespace Vacations
         public System.DateTime updatedAt { get; set; }
         public int createdBy { get; set; }
         public int updatedBy { get; set; }
-        public Nullable<System.DateTime> DayDay { get; set; }
-    
-        public virtual Day Day { get; set; }
     }
 }

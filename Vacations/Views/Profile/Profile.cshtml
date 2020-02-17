@@ -13,20 +13,26 @@
     {
         String header = string.Empty;
 
-        if (rol.Equals("Employee"))
+        if (rol.Equals("Colaborador"))
         {
             header = "~/Views/Shared/_LayoutColab.cshtml";
         }
-        else if (rol.Equals("Manager"))
+        else if (rol.Equals("Supervisor"))
         {
-           header = "~/Views/Shared/_LayoutSupervisor.cshtml";
+            header = "~/Views/Shared/_LayoutSupervisor.cshtml";
         }
-        else if (rol.Equals("Administrator"))
+        else if (rol.Equals("Administrador"))
         {
             header = "~/Views/Shared/_LayoutAdmin.cshtml";
         }
         Session["Header"] = header;
         Layout = header;
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio >", "Index", "Home")</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Perfil ></li>
+            </ol>
+        </nav>
 
         <h2>Bienvenido(a) @rol (a) @name</h2>
     }

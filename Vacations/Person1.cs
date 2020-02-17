@@ -19,7 +19,6 @@ namespace Vacations
         {
             this.Request = new HashSet<Request>();
             this.Departament = new HashSet<Departament>();
-            this.Rol = new HashSet<Rol>();
         }
     
         public int personaId { get; set; }
@@ -33,13 +32,13 @@ namespace Vacations
         public int createdBy { get; set; }
         public int updatedBy { get; set; }
         public int PayrollRolId { get; set; }
+        public int RolrolId { get; set; }
     
         public virtual Payroll Payroll { get; set; }
+        public virtual Rol Rol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Request> Request { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Departament> Departament { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rol> Rol { get; set; }
     }
 }

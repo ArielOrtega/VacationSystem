@@ -9,17 +9,17 @@ namespace Vacations.Controllers
     public class PersonController
     {
 
-        Person person = new Person();
+        Person1 person = new Person1();
 
         public PersonController()
         {
         }
         
-        public Person GetPersonById(int personId)
+        public Person1 GetPersonById(int personId)
         {
             using (EntitiesVacation entitiesVacations = new EntitiesVacation())
             {
-                person = entitiesVacations.Person.Where
+                person = entitiesVacations.Person1.Where
                  (id => id.identification == personId).FirstOrDefault();
             } 
 

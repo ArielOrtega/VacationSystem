@@ -1,11 +1,17 @@
 ﻿@model Vacations.Request
 @{
-    /**Layout = (string)this.Session["Header"];**/
-
     ViewBag.Title = "Crear";
     HoliDays[] holiDaysDate = ViewBag.holidaysDate as HoliDays[];
     DateTime[] holidates = ViewBag.holidates as DateTime[];
-}
+    Layout = (string)this.Session["Header"];
+    if (this.Session["rolUsuario"] == null)
+    {
+        Layout = "~/Views/Shared/_LayoutHome.cshtml";
+        <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
+    }
+    else
+    {
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
@@ -34,13 +40,13 @@
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio", "Index", "Home")</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vacaciones</li>
-        <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Crear", "Create", "Requests")</li>
+        <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio >", "Index", "Home")</a></li>
+        <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Perfil >", "Profile", "Profile")</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Vacaciones ></li>
     </ol>
 </nav>
 
-@using (Html.BeginForm())
+using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -52,7 +58,7 @@
                         <div class="mbsc-col-sm-12 mbsc-col-md-4">
                             <div class="mbsc-form-group">
                                 <div class="mbsc-form-group-title">Seleccione los días a solicitar</div>
-                                @Html.HiddenFor(model => model.days, htmlAttributes: new { @id = "demo-multi-day" })
+                                @Html.HiddenFor(model => model.Day, htmlAttributes: new { @id = "demo-multi-day" })
 
                             </div>
                         </div>
@@ -109,3 +115,5 @@
     </script>
 
 }
+        }
+    }

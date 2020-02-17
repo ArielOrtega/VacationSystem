@@ -1,9 +1,15 @@
 ﻿@model List<Vacations.Models.RequestDTO>
 
 @{
-    Layout = (string)this.Session["Header"];
     ViewBag.Title = "Serve";
-}
+    Layout = (string)this.Session["Header"];
+    if (this.Session["rolUsuario"] == null)
+    {
+        Layout = "~/Views/Shared/_LayoutHome.cshtml";
+        <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
+    }
+    else
+    {
 
 <!DOCTYPE html>
 
@@ -15,9 +21,10 @@
 <body>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio", "Index", "HomeManager")</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Solicitudes</li>
-            <li class="breadcrumb-item active" aria-current="page">Atender Solicitudes</li>
+            <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio >", "Index", "HomeManager")</a></li>
+            <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Perfil >", "Profile", "Profile")</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Solicitudes ></li>
+            <li class="breadcrumb-item active" aria-current="page">Atender Solicitudes ></li>
         </ol>
     </nav>
 
@@ -43,29 +50,31 @@
                 </tr>
             </thead>
             <tbody>
-                    @foreach (var item in ViewData.Model)
-       
-                    {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.personName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.createdAt)
-                    </td>
-                    <td>
-                        <a asp-page="./Ver más">
-                            @Html.ActionLink("Details", "Details", new { requestId = item.requestId })
+                @foreach (var item in ViewData.Model)
 
-                        </a>
-                    </td>
-                </tr>
-                    }
-                
-                 
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.personName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.createdAt)
+                        </td>
+                        <td>
+                            <a asp-page="./Ver más">
+                                @Html.ActionLink("Details", "Details", new { requestId = item.requestId })
+
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+
             </tbody>
         </table>
 
     </div>
 </body>
 </html>
+        }
+    }
