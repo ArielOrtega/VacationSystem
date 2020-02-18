@@ -26,9 +26,9 @@ namespace Vacations.Controllers
         {
             return View();
         }
-        public ActionResult Create()
+        public ActionResult Create(string message = "")
         {
-            ViewBag.PersonpersonaId = new SelectList(db.Person1, "personaId", "name");
+            ViewBag.Message = message;
             List<HoliDays> holiDays = db.HoliDays.ToList();
             List<DateTime> holidates = new List<DateTime>();
             for (int i = 0; i < holiDays.Count; i++)
@@ -48,12 +48,9 @@ namespace Vacations.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "requestId,state,description,daysRequestedCount,midDaysCount,PersonpersonaId,createdAt,updatedAt,createdBy,updatedBy")] Request request, String days)
         {
-            //FALTA CONTROL DE ERRORES
             if (ModelState.IsValid)
             {
                 List<DateModel> daysRequested = StringToList(days);
-                // db.Request.Add(request);
-                //db.SaveChanges();
                 TempData["days"] = daysRequested.ToList();
 
             }
@@ -90,6 +87,7 @@ namespace Vacations.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Check(List<DateModel> model)
         {
+
             DateModel dateModel;
             List<TurnModel> turn;
 
@@ -134,7 +132,7 @@ namespace Vacations.Controllers
                 }
                 else {
                     ViewBag.Message = "Ingrese los turnos correctamente, marque solo un turno o los tres";
-                    return View(model);
+                    return View("Check",model);
                 }
 
                 day.day1 = dateModel.date;
@@ -158,8 +156,23 @@ namespace Vacations.Controllers
             request.updatedAt = DateTime.Now;
             request.updatedBy = (int)Session["identification"];
 
-            addRequest(request);
-            addDays(daysRequested, request);
+            int payrollId = (int)Session["payrollId"];
+            fullDaysCount += midDaysCount / 2;
+
+            Payroll payroll = new Payroll();
+            payroll = db.Payroll.First(p => p.RolId == payrollId);
+
+
+            if (fullDaysCount > payroll.availableDays)
+            {
+                return RedirectToAction("Create", new { message = "Cuenta con " + payroll.availableDays + " día(s) disponible(s), ingrese los datos nuevamente" });
+
+            }
+            else {
+                addRequest(request);
+                addDays(daysRequested, request);
+
+            }
 
             return null;
 

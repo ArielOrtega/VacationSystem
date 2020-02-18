@@ -87,6 +87,7 @@ namespace Vacations.Controllers
                         Session["idUser"] = person.personaId;
                         Session["identification"] = person.identification;
                         Session["rolUsuario"] = person.Rol.name;
+                        Session["payrollId"] = person.PayrollRolId;
 
                         FormsAuthentication.SetAuthCookie(person.name, true);
                         return RedirectToAction("Profile", "Profile");

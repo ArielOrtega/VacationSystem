@@ -8,6 +8,7 @@
         <EntityType Name="Day">
           <Key>
             <PropertyRef Name="dayId" />
+            <PropertyRef Name="RequestrequestId" />
           </Key>
           <Property Name="dayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="day" Type="datetime" Nullable="false" />
@@ -54,6 +55,8 @@
           <Property Name="updatedAt" Type="datetime" Nullable="false" />
           <Property Name="createdBy" Type="int" Nullable="false" />
           <Property Name="updatedBy" Type="int" Nullable="false" />
+          <Property Name="availableDays" Type="int" Nullable="false" />
+          <Property Name="daysPerYear" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -306,6 +309,7 @@
         <EntityType Name="Day">
           <Key>
             <PropertyRef Name="dayId" />
+            <PropertyRef Name="RequestrequestId" />
           </Key>
           <Property Name="dayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="day1" Type="DateTime" Nullable="false" Precision="3" />
@@ -354,6 +358,8 @@
           <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="createdBy" Type="Int32" Nullable="false" />
           <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <Property Name="availableDays" Type="Int32" Nullable="false" />
+          <Property Name="daysPerYear" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Person1" Relationship="Self.Belongs" FromRole="Payroll" ToRole="Person1" />
         </EntityType>
         <EntityType Name="Permission">
@@ -601,6 +607,8 @@
                 <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
                 <ScalarProperty Name="createdBy" ColumnName="createdBy" />
                 <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="availableDays" ColumnName="availableDays" />
+                <ScalarProperty Name="daysPerYear" ColumnName="daysPerYear" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -712,7 +720,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
