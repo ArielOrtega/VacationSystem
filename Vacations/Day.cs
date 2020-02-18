@@ -22,7 +22,8 @@ namespace Vacations
         public int createdBy { get; set; }
         public int updatedBy { get; set; }
         public int RequestrequestId { get; set; }
-    
+
+
         public virtual Request Request { get; set; }
     }
 }

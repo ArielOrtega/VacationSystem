@@ -148,34 +148,34 @@ namespace Vacations.Controllers
 
 
                 db.Day.Add(day);
-
+                db.SaveChanges();
             };
-
-            //Request request = new Request("sent", "TESTING", fullDaysCount, midDaysCount, (int)Session["idUser"], DateTime.Now, DateTime.Now, (int)Session["identification"], (int)Session["identification"], daysRequested);
+            /**
+            Request request = new Request("sent", "TESTING", fullDaysCount, midDaysCount, (int)Session["idUser"], DateTime.Now, DateTime.Now, (int)Session["identification"], (int)Session["identification"], daysRequested);
            
-            //try
-            //{
-            //    db.Request.Add(request);
-            //    db.SaveChanges();
-            //}
-            //catch (DbEntityValidationException e)
-            //{
-            //    foreach (var eve in e.EntityValidationErrors)
-            //    {
-            //        System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-            //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-            //        foreach (var ve in eve.ValidationErrors)
-            //        {
-            //            System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-            //                ve.PropertyName, ve.ErrorMessage);
-            //        }
-            //    }
-            //    throw;
-            //}
+            try
+            {
+                db.Request.Add(request);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
 
             ////TempData["days"] = daysRequested.ToList();
             ////}
-            ////return View(request);
+            ////return View(request);**/
             return null;
 
         }
