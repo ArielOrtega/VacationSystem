@@ -90,7 +90,6 @@ namespace Vacations.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Check(List<DateModel> model)
         {
-            //FALTA CONTROL DE ERRORES, VALIDACIONES
             DateModel dateModel;
             List<TurnModel> turn;
 
@@ -99,6 +98,9 @@ namespace Vacations.Controllers
             int fullDaysCount = 0;
             int midDaysCount = 0;
 
+
+            //El sgte ciclo agarra los dias del modelo para crear una lista de Days con sus respectivos turnos
+            //Realiza el conteo de los medios dias y dias completos para llenar la tabla request
             for (int index = 0; index < model.Count; index++)
             {
                 dateModel = new DateModel();
@@ -130,29 +132,41 @@ namespace Vacations.Controllers
                     day.turn = 4;
                     midDaysCount++;
                 }
+                else {
+                    ViewBag.Message = "Ingrese los turnos correctamente, marque solo un turno o los tres";
+                    return View(model);
+                }
 
-
-                //OBTENER LA SESIÓN DEL EMPLEADO
                 day.day1 = dateModel.date;
-                day.RequestrequestId = (int)Session["idUser"];
                 day.createdAt = DateTime.Now;
                 day.updatedAt = DateTime.Now;
                 day.createdBy = (int)Session["identification"];
                 day.updatedBy = (int)Session["identification"];
-
-
-                System.Diagnostics.Debug.WriteLine(day.day1);
-                System.Diagnostics.Debug.WriteLine(day.RequestrequestId);
-                System.Diagnostics.Debug.WriteLine(day.turn);
                 daysRequested.Add(day);
 
 
-                db.Day.Add(day);
-                db.SaveChanges();
+
             };
-            /**
-            Request request = new Request("sent", "TESTING", fullDaysCount, midDaysCount, (int)Session["idUser"], DateTime.Now, DateTime.Now, (int)Session["identification"], (int)Session["identification"], daysRequested);
-           
+
+            Request request = new Request();
+            request.state = "sent";
+            request.description = "TESTING";
+            request.daysRequestedCount = fullDaysCount;
+            request.midDaysCount = midDaysCount;
+            request.PersonpersonaId = (int)Session["idUser"];
+            request.createdAt = DateTime.Now;
+            request.updatedAt = DateTime.Now;
+            request.updatedBy = (int)Session["identification"];
+
+            addRequest(request);
+            addDays(daysRequested, request);
+
+            return null;
+
+        }
+        public void addRequest(Request request)
+        {
+
             try
             {
                 db.Request.Add(request);
@@ -173,10 +187,35 @@ namespace Vacations.Controllers
                 throw;
             }
 
-            ////TempData["days"] = daysRequested.ToList();
-            ////}
-            ////return View(request);**/
-            return null;
+        }
+
+        public void addDays(List<Day> daysRequested, Request request)
+        {
+            for (int i = 0; i < daysRequested.Count(); i++)
+            {
+
+                try
+                {
+                    daysRequested.ElementAt(i).RequestrequestId = request.requestId;
+                    db.Day.Add(daysRequested.ElementAt(i));
+                    db.SaveChanges();
+
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
+            }
 
         }
     }
