@@ -49,15 +49,6 @@ warning 6002: The table/view '2020Analisis.VACATIONS.Payroll' does not have a pr
         <EntityType Name="Payroll">
           <Key>
             <PropertyRef Name="RolId" />
-            <PropertyRef Name="salary" />
-            <PropertyRef Name="bonusSalary" />
-            <PropertyRef Name="createdAt" />
-            <PropertyRef Name="updatedAt" />
-            <PropertyRef Name="createdBy" />
-            <PropertyRef Name="updatedBy" />
-            <PropertyRef Name="availableDays" />
-            <PropertyRef Name="daysPerYear" />
-            <PropertyRef Name="workingDay" />
           </Key>
           <Property Name="RolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="salary" Type="int" Nullable="false" />
@@ -439,15 +430,6 @@ warning 6002: The table/view '2020Analisis.VACATIONS.Payroll' does not have a pr
         <EntityType Name="Payroll">
           <Key>
             <PropertyRef Name="RolId" />
-            <PropertyRef Name="salary" />
-            <PropertyRef Name="bonusSalary" />
-            <PropertyRef Name="createdAt" />
-            <PropertyRef Name="updatedAt" />
-            <PropertyRef Name="createdBy" />
-            <PropertyRef Name="updatedBy" />
-            <PropertyRef Name="availableDays" />
-            <PropertyRef Name="daysPerYear" />
-            <PropertyRef Name="workingDay" />
           </Key>
           <Property Name="RolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="salary" Type="Int32" Nullable="false" />
