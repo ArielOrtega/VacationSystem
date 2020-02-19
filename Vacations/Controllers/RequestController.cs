@@ -205,6 +205,8 @@ namespace Vacations.Controllers
                 //decrementDays(payroll, fullDaysCount);
                 //addRequest(request);
                 //addDays(daysRequested, request);
+                ViewBag.Message = "sent";
+                return View(model);
 
             }
 

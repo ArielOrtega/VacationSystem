@@ -1,6 +1,8 @@
 ﻿@model List<Vacations.Models.DateModel>
 
 @{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     ViewBag.Title = "Create";
     Layout = (string)this.Session["Header"];
     if (this.Session["rolUsuario"] == null)
@@ -16,11 +18,27 @@
         {
             @Html.AntiForgeryToken()
 
-            if (!string.IsNullOrEmpty(ViewBag.Message))
+            if (ViewBag.Message == "sent")
             {
+                <script type="text/javascript">
+
+
+                    $.alert({
+                        title: 'Alert!',
+                        content: 'Simple alert!',
+                        theme: "modern"
+                    });
+
+                </script>
+
+            }
+            else if (!string.IsNullOrEmpty(ViewBag.Message))
+            {
+
                 <div class="alert-danger col-md-4">
                     @ViewBag.Message
                 </div><br /><br />
+
             }
             <table class="table">
                 @for (int index = 0; index < Model.Count; index++)
@@ -45,14 +63,17 @@
                 }
 
             </table>
-            <input type="submit" value="Enviar" class="btn btn-default" onsubmit="openModal()" />
+            <input type="submit" value="Enviar" class="btn btn-default" onsubmit="openModal()" id="Send" />
         }
     }
-    <script>
-        $('#myForm').on('submit', function (e) {
-            $('#myModal').modal('show');
-            e.preventDefault();
-        });
+            <script>
+                $(document).ready(function () {
+                    var button = $("#Send");
+                    button.click(function (event) {
+                        window.location = '/';
+                    })
+                });
 
-    </script>
+
+            </script>
 }
