@@ -21,7 +21,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Vacaciones", "Create", "Request")</li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="DropDownVacation" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Vacaciones
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#" style="text-align:left">@Html.ActionLink("Crear", "Create", "Request")</a>
+                            <div>
+                                <a class="dropdown-item" href="#" style="text-align:left">@Html.ActionLink("Ver", "MyVacation", "Request")</a>
+                            </div>
+                        </div>
+                    </li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
 
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
