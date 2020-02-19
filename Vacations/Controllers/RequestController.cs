@@ -410,7 +410,10 @@ namespace Vacations.Controllers
                 List<Day> oldDayToRemove = context.Day.
                     Where(oldDay => oldDay.RequestrequestId == requestId).ToList();
 
-
+                for (int i = 0; i < oldDayToRemove.Count(); i++)
+                {
+                    context.Day.Remove(oldDayToRemove.ElementAt(i));
+                }
 
 
                 // falta hacer la asignacion de los nuevos valores
