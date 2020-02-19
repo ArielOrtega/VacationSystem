@@ -181,11 +181,14 @@ namespace Vacations.Controllers
             else
             {
                 //decrementDays(payroll, fullDaysCount);
+
+
+
+                updateRequest(request);
+                deleteOldDays(request.requestId);   
                 
 
-            
-                //addRequest(request);
-                //addDays(daysRequested, request);
+
                 ViewBag.Message = "sent";
                 return View(model);
 

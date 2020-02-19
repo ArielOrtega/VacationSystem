@@ -11,7 +11,8 @@ namespace Vacations
 {
     using System;
     using System.Collections.Generic;
-    
+    using Vacations.Models;
+
     public partial class Request
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +21,9 @@ namespace Vacations
             this.Day = new HashSet<Day>();
             this.VacationInfo = new HashSet<VacationInfo>();
         }
-    
+
+        public List<DateModel> days { get; set; }
+
         public int requestId { get; set; }
         public string state { get; set; }
         public string description { get; set; }
