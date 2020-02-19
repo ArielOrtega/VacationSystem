@@ -130,9 +130,10 @@ namespace Vacations.Controllers
                     day.turn = 4;
                     midDaysCount++;
                 }
-                else {
+                else
+                {
                     ViewBag.Message = "Ingrese los turnos correctamente, marque solo un turno o los tres";
-                    return View("Check",model);
+                    return View("Check", model);
                 }
 
                 day.day1 = dateModel.date;
@@ -168,15 +169,23 @@ namespace Vacations.Controllers
                 return RedirectToAction("Create", new { message = "Cuenta con " + payroll.availableDays + " día(s) disponible(s), ingrese los datos nuevamente" });
 
             }
-            else {
-                addRequest(request);
-                addDays(daysRequested, request);
+            else
+            {
+                //decrementDays(payroll, fullDaysCount);
+                //addRequest(request);
+                //addDays(daysRequested, request);
 
             }
 
-            return null;
+            return PartialView("Confirm");
 
         }
+
+        public ActionResult Confirm()
+        {
+            return View();
+        }
+
         public void addRequest(Request request)
         {
 
@@ -231,5 +240,16 @@ namespace Vacations.Controllers
             }
 
         }
+
+        public void decrementDays(Payroll payroll, int fullDaysCount)
+        {
+            if (payroll != null)
+            {
+                payroll.availableDays = payroll.availableDays - fullDaysCount;
+                db.SaveChanges();
+            }
+        }
+
     }
+
 }
