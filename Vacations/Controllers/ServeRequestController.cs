@@ -28,7 +28,8 @@ namespace Vacations.Controllers
         public ActionResult Serve()
         {
             List<RequestDTO> requestToList = new List<RequestDTO>();
-            requestToList = getIncomingRequest(309940167);
+            int idPerson = (int)this.Session["idUser"];
+            requestToList = getIncomingRequest(idPerson);
 
 
             ViewData.Model = requestToList;
