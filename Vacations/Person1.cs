@@ -34,7 +34,6 @@ namespace Vacations
         public int PayrollRolId { get; set; }
         public int RolrolId { get; set; }
     
-        public virtual Payroll Payroll { get; set; }
         public virtual Rol Rol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Request> Request { get; set; }

@@ -44,9 +44,20 @@
           <Property Name="createdBy" Type="int" Nullable="false" />
           <Property Name="updatedBy" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '2020Analisis.VACATIONS.Payroll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Payroll">
           <Key>
             <PropertyRef Name="RolId" />
+            <PropertyRef Name="salary" />
+            <PropertyRef Name="bonusSalary" />
+            <PropertyRef Name="createdAt" />
+            <PropertyRef Name="updatedAt" />
+            <PropertyRef Name="createdBy" />
+            <PropertyRef Name="updatedBy" />
+            <PropertyRef Name="availableDays" />
+            <PropertyRef Name="daysPerYear" />
+            <PropertyRef Name="workingDay" />
           </Key>
           <Property Name="RolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="salary" Type="int" Nullable="false" />
@@ -57,6 +68,7 @@
           <Property Name="updatedBy" Type="int" Nullable="false" />
           <Property Name="availableDays" Type="int" Nullable="false" />
           <Property Name="daysPerYear" Type="int" Nullable="false" />
+          <Property Name="workingDay" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -144,18 +156,6 @@
           <Property Name="updatedBy" Type="int" Nullable="false" />
           <Property Name="RequestrequestId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="Belongs">
-          <End Role="Payroll" Type="Self.Payroll" Multiplicity="1" />
-          <End Role="Person1" Type="Self.Person1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Payroll">
-              <PropertyRef Name="RolId" />
-            </Principal>
-            <Dependent Role="Person1">
-              <PropertyRef Name="PayrollRolId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FKPerson_Dep234518">
           <End Role="Person1" Type="Self.Person1" Multiplicity="1" />
           <End Role="Person_Departament" Type="Self.Person_Departament" Multiplicity="*" />
@@ -256,7 +256,6 @@
           <EntitySet Name="Day" EntityType="Self.Day" Schema="VACATIONS" store:Type="Tables" />
           <EntitySet Name="Departament" EntityType="Self.Departament" Schema="VACATIONS" store:Type="Tables" />
           <EntitySet Name="HoliDays" EntityType="Self.HoliDays" Schema="VACATIONS" store:Type="Tables" />
-          <EntitySet Name="Payroll" EntityType="Self.Payroll" Schema="VACATIONS" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="VACATIONS" store:Type="Tables" />
           <EntitySet Name="Person_Departament" EntityType="Self.Person_Departament" Schema="VACATIONS" store:Type="Tables" />
           <EntitySet Name="Person1" EntityType="Self.Person1" Schema="VACATIONS" store:Type="Tables" />
@@ -264,10 +263,20 @@
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="VACATIONS" store:Type="Tables" />
           <EntitySet Name="Rol_Permission" EntityType="Self.Rol_Permission" Schema="VACATIONS" store:Type="Tables" />
           <EntitySet Name="VacationInfo" EntityType="Self.VacationInfo" Schema="VACATIONS" store:Type="Tables" />
-          <AssociationSet Name="Belongs" Association="Self.Belongs">
-            <End Role="Payroll" EntitySet="Payroll" />
-            <End Role="Person1" EntitySet="Person1" />
-          </AssociationSet>
+          <EntitySet Name="Payroll" EntityType="Self.Payroll" store:Type="Tables" store:Schema="VACATIONS">
+            <DefiningQuery>SELECT 
+    [Payroll].[RolId] AS [RolId], 
+    [Payroll].[salary] AS [salary], 
+    [Payroll].[bonusSalary] AS [bonusSalary], 
+    [Payroll].[createdAt] AS [createdAt], 
+    [Payroll].[updatedAt] AS [updatedAt], 
+    [Payroll].[createdBy] AS [createdBy], 
+    [Payroll].[updatedBy] AS [updatedBy], 
+    [Payroll].[availableDays] AS [availableDays], 
+    [Payroll].[daysPerYear] AS [daysPerYear], 
+    [Payroll].[workingDay] AS [workingDay]
+    FROM [VACATIONS].[Payroll] AS [Payroll]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FKPerson_Dep234518" Association="Self.FKPerson_Dep234518">
             <End Role="Person1" EntitySet="Person1" />
             <End Role="Person_Departament" EntitySet="Person_Departament" />
@@ -347,21 +356,6 @@
           <Property Name="createdBy" Type="Int32" Nullable="false" />
           <Property Name="updatedBy" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Payroll">
-          <Key>
-            <PropertyRef Name="RolId" />
-          </Key>
-          <Property Name="RolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="salary" Type="Int32" Nullable="false" />
-          <Property Name="bonusSalary" Type="Int32" Nullable="false" />
-          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="createdBy" Type="Int32" Nullable="false" />
-          <Property Name="updatedBy" Type="Int32" Nullable="false" />
-          <Property Name="availableDays" Type="Int32" Nullable="false" />
-          <Property Name="daysPerYear" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Person1" Relationship="Self.Belongs" FromRole="Payroll" ToRole="Person1" />
-        </EntityType>
         <EntityType Name="Permission">
           <Key>
             <PropertyRef Name="permisoId" />
@@ -392,7 +386,6 @@
           <Property Name="updatedBy" Type="Int32" Nullable="false" />
           <Property Name="PayrollRolId" Type="Int32" Nullable="false" />
           <Property Name="RolrolId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Payroll" Relationship="Self.Belongs" FromRole="Person1" ToRole="Payroll" />
           <NavigationProperty Name="Rol" Relationship="Self.HasPersons" FromRole="Person1" ToRole="Rol" />
           <NavigationProperty Name="Request" Relationship="Self.manages" FromRole="Person1" ToRole="Request" />
           <NavigationProperty Name="Departament" Relationship="Self.Person_Departament" FromRole="Person1" ToRole="Departament" />
@@ -443,6 +436,30 @@
           <Property Name="RequestrequestId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Request" Relationship="Self.HasRequest" FromRole="VacationInfo" ToRole="Request" />
         </EntityType>
+        <EntityType Name="Payroll">
+          <Key>
+            <PropertyRef Name="RolId" />
+            <PropertyRef Name="salary" />
+            <PropertyRef Name="bonusSalary" />
+            <PropertyRef Name="createdAt" />
+            <PropertyRef Name="updatedAt" />
+            <PropertyRef Name="createdBy" />
+            <PropertyRef Name="updatedBy" />
+            <PropertyRef Name="availableDays" />
+            <PropertyRef Name="daysPerYear" />
+            <PropertyRef Name="workingDay" />
+          </Key>
+          <Property Name="RolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="salary" Type="Int32" Nullable="false" />
+          <Property Name="bonusSalary" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" Nullable="false" />
+          <Property Name="availableDays" Type="Int32" Nullable="false" />
+          <Property Name="daysPerYear" Type="Int32" Nullable="false" />
+          <Property Name="workingDay" Type="Int32" Nullable="false" />
+        </EntityType>
         <Association Name="HasDays">
           <End Role="Request" Type="Self.Request" Multiplicity="1" />
           <End Role="Day" Type="Self.Day" Multiplicity="*" />
@@ -452,18 +469,6 @@
             </Principal>
             <Dependent Role="Day">
               <PropertyRef Name="RequestrequestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Belongs">
-          <End Role="Payroll" Type="Self.Payroll" Multiplicity="1" />
-          <End Role="Person1" Type="Self.Person1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Payroll">
-              <PropertyRef Name="RolId" />
-            </Principal>
-            <Dependent Role="Person1">
-              <PropertyRef Name="PayrollRolId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -515,19 +520,15 @@
           <EntitySet Name="Day" EntityType="Self.Day" />
           <EntitySet Name="Departament" EntityType="Self.Departament" />
           <EntitySet Name="HoliDays" EntityType="Self.HoliDays" />
-          <EntitySet Name="Payroll" EntityType="Self.Payroll" />
           <EntitySet Name="Permission" EntityType="Self.Permission" />
           <EntitySet Name="Person1" EntityType="Self.Person1" />
           <EntitySet Name="Request" EntityType="Self.Request" />
           <EntitySet Name="Rol" EntityType="Self.Rol" />
           <EntitySet Name="VacationInfo" EntityType="Self.VacationInfo" />
+          <EntitySet Name="Payroll" EntityType="Self.Payroll" />
           <AssociationSet Name="HasDays" Association="Self.HasDays">
             <End Role="Request" EntitySet="Request" />
             <End Role="Day" EntitySet="Day" />
-          </AssociationSet>
-          <AssociationSet Name="Belongs" Association="Self.Belongs">
-            <End Role="Payroll" EntitySet="Payroll" />
-            <End Role="Person1" EntitySet="Person1" />
           </AssociationSet>
           <AssociationSet Name="HasPersons" Association="Self.HasPersons">
             <End Role="Rol" EntitySet="Rol" />
@@ -594,21 +595,6 @@
                 <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
                 <ScalarProperty Name="createdBy" ColumnName="createdBy" />
                 <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Payroll">
-            <EntityTypeMapping TypeName="AnalisisModel.Payroll">
-              <MappingFragment StoreEntitySet="Payroll">
-                <ScalarProperty Name="RolId" ColumnName="RolId" />
-                <ScalarProperty Name="salary" ColumnName="salary" />
-                <ScalarProperty Name="bonusSalary" ColumnName="bonusSalary" />
-                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
-                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
-                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
-                <ScalarProperty Name="availableDays" ColumnName="availableDays" />
-                <ScalarProperty Name="daysPerYear" ColumnName="daysPerYear" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -684,6 +670,22 @@
                 <ScalarProperty Name="createdBy" ColumnName="createdBy" />
                 <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
                 <ScalarProperty Name="RequestrequestId" ColumnName="RequestrequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payroll">
+            <EntityTypeMapping TypeName="AnalisisModel.Payroll">
+              <MappingFragment StoreEntitySet="Payroll">
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="bonusSalary" ColumnName="bonusSalary" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="availableDays" ColumnName="availableDays" />
+                <ScalarProperty Name="daysPerYear" ColumnName="daysPerYear" />
+                <ScalarProperty Name="workingDay" ColumnName="workingDay" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,12 +14,6 @@ namespace Vacations
     
     public partial class Payroll
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Payroll()
-        {
-            this.Person1 = new HashSet<Person1>();
-        }
-    
         public int RolId { get; set; }
         public int salary { get; set; }
         public int bonusSalary { get; set; }
@@ -29,8 +23,6 @@ namespace Vacations
         public int updatedBy { get; set; }
         public int availableDays { get; set; }
         public int daysPerYear { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Person1> Person1 { get; set; }
+        public int workingDay { get; set; }
     }
 }

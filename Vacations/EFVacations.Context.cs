@@ -28,11 +28,11 @@ namespace Vacations
         public virtual DbSet<Day> Day { get; set; }
         public virtual DbSet<Departament> Departament { get; set; }
         public virtual DbSet<HoliDays> HoliDays { get; set; }
-        public virtual DbSet<Payroll> Payroll { get; set; }
         public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<Person1> Person1 { get; set; }
         public virtual DbSet<Request> Request { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<VacationInfo> VacationInfo { get; set; }
+        public virtual DbSet<Payroll> Payroll { get; set; }
     }
 }
