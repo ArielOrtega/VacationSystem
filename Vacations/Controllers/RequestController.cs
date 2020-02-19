@@ -16,6 +16,7 @@ namespace Vacations.Controllers
     public class RequestController : Controller
     {
         private EntitiesVacation db = new EntitiesVacation();
+        List<RequestDTO> requestToFind = new List<RequestDTO>();
 
         public ActionResult Serve()
         {
@@ -26,6 +27,36 @@ namespace Vacations.Controllers
         {
             return View();
         }
+
+
+        public ActionResult FilterRequest(string state)
+        {
+
+            List<RequestDTO> listStateRequest = new List<RequestDTO>();
+
+            int idPerson = (int)this.Session["idUser"];
+            requestToFind = getRequestDetailsByPerson(idPerson);
+
+            listStateRequest = GetRequestByState(state, requestToFind);
+
+            ViewData.Model = listStateRequest;
+
+            return View();
+        }
+
+        public ActionResult MyVacation()
+        {
+
+            int idPerson = (int)this.Session["idUser"];
+            requestToFind = getRequestDetailsByPerson(idPerson);
+
+            ViewData.Model = requestToFind;
+
+
+            return View();
+        }
+
+
         public ActionResult Create(string message = "")
         {
             ViewBag.Message = message;
@@ -249,6 +280,54 @@ namespace Vacations.Controllers
                 db.SaveChanges();
             }
         }
+
+
+        private List<RequestDTO> getRequestDetailsByPerson(int personId)
+        {
+            List<RequestDTO> requestList = new List<RequestDTO>();
+            Departament department = new Departament();
+
+            using (EntitiesVacation entitiesVacation = new EntitiesVacation())
+            {
+
+                requestList = (from person in entitiesVacation.Person1
+                               join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
+                               where request.PersonpersonaId == personId
+                               select new RequestDTO
+                               {
+                                   requestId = request.requestId,
+                                   state = request.state,
+                                   description = request.description,
+                                   daysRequestedCount = request.daysRequestedCount,
+                                   midDaysCount = request.midDaysCount,
+                                   PersonpersonaId = request.PersonpersonaId,
+                                   createdAt = request.createdAt,
+                                   updatedAt = request.updatedAt,
+                                   createdBy = request.createdBy,
+                                   updatedBy = request.updatedBy,
+                                   personName = person.name + " " + person.lastName
+                               }).ToList();
+            }
+
+            return requestList;
+
+        }
+
+        public List<RequestDTO> GetRequestByState(string state, List<RequestDTO> requestList)
+        {
+
+            List<RequestDTO> requestListState = new List<RequestDTO>();
+
+            foreach (var item in requestList)
+            {
+                if (item.state == state)
+                {
+                    requestListState.Add(item);
+                }
+            }
+            return requestListState;
+        }
+
 
     }
 

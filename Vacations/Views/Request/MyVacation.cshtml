@@ -32,9 +32,10 @@
     <div>
         <h4>Filtrar por estado</h4>
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary">@Html.ActionLink("En espera", "FilterRequest", new { state = "sent"})</button>
+            <button type="button" class="btn btn-secondary">@Html.ActionLink("Todos", "MyVacation", "Request")</button>
+            <button type="button" class="btn btn-secondary">@Html.ActionLink("En espera", "FilterRequest", new { state = "sent" })</button>
             <button type="button" class="btn btn-secondary">@Html.ActionLink("Aceptado", "FilterRequest", new { state = "acepted" })</button>
-            <button type="button" class="btn btn-secondary">@Html.ActionLink("Cancelado", "FilterRequest", new { state = "rejected" })</button>
+            <button type="button" class="btn btn-secondary">@Html.ActionLink("Rechazadas", "FilterRequest", new { state = "rejected" })</button>
         </div>
     </div>
 
@@ -62,7 +63,7 @@
                     </td>
                     <td>
                         <a asp-page="./Editar">
-
+                            @Html.ActionLink("Editar", "Create", "Request")
                         </a>
                     </td>
                 </tr>
