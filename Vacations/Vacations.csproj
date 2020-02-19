@@ -253,6 +253,8 @@
     <Content Include="Views\Request\Confirm.cshtml" />
     <Content Include="Views\Request\FilterRequest.cshtml" />
     <Content Include="Views\Request\MyVacation.cshtml" />
+    <Content Include="Views\Request\UpdateDates.cshtml" />
+    <Content Include="Views\Request\UpdateCheck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -56,6 +56,145 @@ namespace Vacations.Controllers
             return View();
         }
 
+        public ActionResult UpdateDates()
+        {
+            List<HoliDays> holiDays = db.HoliDays.ToList();
+            List<DateTime> holidates = new List<DateTime>();
+            for (int i = 0; i < holiDays.Count; i++)
+            {
+                holidates.Add(holiDays.ElementAt(i).date);
+            }
+            ViewData["holidaysDate"] = holiDays;
+            ViewBag.holidaysDate = holiDays;
+            ViewBag.holidates = holidates;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateDates(String days)
+        {
+            if (ModelState.IsValid)
+            {
+                List<DateModel> daysRequested = StringToList(days);
+                TempData["days"] = daysRequested.ToList();
+
+            }
+            return RedirectToAction("UpdateCheck");
+        }
+
+        //GET
+        public ActionResult UpdateCheck()
+        {
+            List<DateModel> model = TempData["days"] as List<DateModel>;
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateCheck(List<DateModel> model)
+        {
+
+            DateModel dateModel;
+            List<TurnModel> turn;
+
+            List<Day> daysRequested = new List<Day>();
+            Day day = new Day();
+            int fullDaysCount = 0;
+            int midDaysCount = 0;
+
+
+            //El sgte ciclo agarra los dias del modelo para crear una lista de Days con sus respectivos turnos
+            //Realiza el conteo de los medios dias y dias completos para llenar la tabla request
+            for (int index = 0; index < model.Count; index++)
+            {
+                dateModel = new DateModel();
+                turn = new List<TurnModel>();
+                dateModel = model.ElementAt(index);
+                turn = dateModel.turn;
+
+                day = new Day();
+
+                if (turn.ElementAt(0).isChecked && turn.ElementAt(1).isChecked && turn.ElementAt(2).isChecked)
+                {
+                    day.turn = 1;
+                    fullDaysCount++;
+
+                }
+                else if (turn.ElementAt(0).isChecked && !turn.ElementAt(1).isChecked && !turn.ElementAt(2).isChecked)
+                {
+                    day.turn = 2;
+                    midDaysCount++;
+
+                }
+                else if (!turn.ElementAt(0).isChecked && turn.ElementAt(1).isChecked && !turn.ElementAt(2).isChecked)
+                {
+                    day.turn = 3;
+                    midDaysCount++;
+                }
+                else if (!turn.ElementAt(0).isChecked && !turn.ElementAt(1).isChecked && turn.ElementAt(2).isChecked)
+                {
+                    day.turn = 4;
+                    midDaysCount++;
+                }
+                else
+                {
+                    ViewBag.Message = "Ingrese los turnos correctamente, marque solo un turno o los tres";
+                    return View("Check", model);
+                }
+
+                day.day1 = dateModel.date;
+                day.createdAt = DateTime.Now;
+                day.updatedAt = DateTime.Now;
+                day.createdBy = (int)Session["identification"];
+                day.updatedBy = (int)Session["identification"];
+                daysRequested.Add(day);
+
+
+
+            };
+
+            Request request = new Request();
+            request.state = "sent";
+            request.description = "TESTING";
+            request.daysRequestedCount = fullDaysCount;
+            request.midDaysCount = midDaysCount;
+            request.PersonpersonaId = (int)Session["idUser"];
+            request.createdAt = DateTime.Now;
+            request.updatedAt = DateTime.Now;
+            request.updatedBy = (int)Session["identification"];
+
+            int payrollId = (int)Session["payrollId"];
+            fullDaysCount += midDaysCount / 2;
+
+            Payroll payroll = new Payroll();
+            payroll = db.Payroll.First(p => p.RolId == payrollId);
+
+
+            if (fullDaysCount > payroll.availableDays)
+            {
+                return RedirectToAction("Create", new { message = "Cuenta con " + payroll.availableDays + " día(s) disponible(s), ingrese los datos nuevamente" });
+
+            }
+            else
+            {
+                //decrementDays(payroll, fullDaysCount);
+                
+
+            
+                //addRequest(request);
+                //addDays(daysRequested, request);
+                ViewBag.Message = "sent";
+                return View(model);
+
+            }
+
+            return PartialView("Confirm");
+
+        }
+
 
         public ActionResult Create(string message = "")
         {
@@ -246,6 +385,40 @@ namespace Vacations.Controllers
             }
 
         }
+
+        public void updateRequest(Request request)
+        {
+            using (var context = new EntitiesVacation())
+            {
+
+                Request requestToUpdate = context.Request.
+                    Where(requestDB => requestDB.requestId == request.requestId).FirstOrDefault();
+
+                deleteOldDays(request.requestId);
+                // falta hacer la asignacion de los nuevos valores
+
+            }
+
+        }
+
+        public void deleteOldDays(int requestId)
+        {
+
+            using (var context = new EntitiesVacation())
+            {
+
+                List<Day> oldDayToRemove = context.Day.
+                    Where(oldDay => oldDay.RequestrequestId == requestId).ToList();
+
+
+
+
+                // falta hacer la asignacion de los nuevos valores
+
+            }
+
+        }
+
 
         public void addDays(List<Day> daysRequested, Request request)
         {
