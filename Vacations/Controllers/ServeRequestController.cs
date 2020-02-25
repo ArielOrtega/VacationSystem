@@ -167,8 +167,8 @@ namespace Vacations.Controllers
 
         }
         
-
-        public Request NotifyEmail(int requestIdToServe, string description, string state)
+        [HttpPost]
+        public ActionResult NotifyEmail(int requestIdToServe, string description, string state)
         {
             var now = DateTime.Now;
             var updateDate = new DateTime(now.Year, now.Month, now.Day,
@@ -186,12 +186,13 @@ namespace Vacations.Controllers
                 entitiesVacations.Entry(request).State = EntityState.Modified;
                 entitiesVacations.SaveChanges();
 
-                var person = personController.GetPersonById(request.createdBy);
+                var person = personController.GetPersonById(request.PersonpersonaId);
                 sendNotifyEmail(request, person.email);
 
-                return request;
+                
             }
 
+            return View("Serve");
         }
 
         public String sendNotifyEmail(Request request, string recieverEmail)

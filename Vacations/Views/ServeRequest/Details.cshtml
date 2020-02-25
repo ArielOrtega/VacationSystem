@@ -92,6 +92,9 @@
             <tbody>
                 <tr>
                     <td>
+                        @Html.DisplayFor(modelItem => request.requestId)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => request.personName)
                     </td>
                     <td>
@@ -107,22 +110,38 @@
                         @Html.DisplayFor(modelItem => request.requestDays.ElementAt(1).turnName)
                     </td>
 
-                    <td>
-                        <button type="button" class="alert-success" onclick="ConfirmMessege()">Aceptar</button>
-                        <button type="button" class="alert-danger" onclick="DenyMessege()">Rechazar</button>
-                    </td>
                 </tr>
 
             </tbody>
         </table>
+       
 
-        <form>
+        <form action="~/ServeRequest/NotifyEmail" method="post">
+            
             <div class="form-group">
+                <input type="number" name="requestIdToServe" id="requestIdToServe"
+                       value="@request.requestId" style="visibility:hidden">
+
                 <label for="TextArea" name="LabelTextAreaConfirm">Ingrese el motivo de confirmación de la solicitud</label>
-                <textarea class="form-control" id="TextareaConfirm" rows="3"></textarea>
+                <textarea type="text" class="form-control" name="description" id="description" rows="3" required></textarea>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Opciones</label>
+                    </div>
+                    <select class="custom-select" id="state" name="state">
+                        <option value="acepted"> Aceptar</option>
+                        <option value="rejected"> Rechazar</option>
+
+                    </select>
+                </div>
             </div>
+            
+
+            <input type="submit" value="Enviar"> 
+
         </form>
-        <button type="button" class="bg-success" onclick="ConfirmReason()">Enviar</button>
+        
 
     </div>
     <FORM NAME="buttonbar">

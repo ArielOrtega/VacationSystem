@@ -20,7 +20,7 @@ namespace Vacations.Controllers
             using (EntitiesVacation entitiesVacations = new EntitiesVacation())
             {
                 person = entitiesVacations.Person1.Where
-                 (id => id.identification == personId).FirstOrDefault();
+                 (id => id.personaId == personId).FirstOrDefault();
             } 
 
             return person;
