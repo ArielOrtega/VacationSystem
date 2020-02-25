@@ -28,7 +28,7 @@ namespace Vacations.Controllers
         public ActionResult Serve()
         {
             List<RequestDTO> requestToList = new List<RequestDTO>();
-            int idPerson = (int)this.Session["idUser"];
+            int idPerson = (int) this.Session["idUser"];
             requestToList = getIncomingRequest(idPerson);
 
 
@@ -48,12 +48,24 @@ namespace Vacations.Controllers
         public RequestDTO getRequestDetails(int requestId)
         {
             RequestDTO requestToFind = new RequestDTO();
+            List<DayDTO> requestDay = new List<DayDTO>();
 
             using (EntitiesVacation entitiesVacation = new EntitiesVacation())
             {
-                /* requestToFind = entitiesVacation.Request
-                     .Where(request => request.requestId == requestId).FirstOrDefault();
-                     */
+          
+
+                requestDay = (from day in entitiesVacation.Day
+                              where day.RequestrequestId == requestId
+                              select new DayDTO
+                              {
+                                  dayId = day.dayId,
+                                  day1 = day.day1,
+                                  turn = day.turn
+
+                              }).ToList();
+
+
+
                 requestToFind = (from d in entitiesVacation.Departament
                                  from person in d.Person1
                                  join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
@@ -73,12 +85,48 @@ namespace Vacations.Controllers
                                      personName = person.name + " " + person.lastName,
                                      departmentName = d.name
                                  }).FirstOrDefault();
+
+                requestToFind.requestDays = GetTurnName(requestDay);
+
             }
 
             return requestToFind;
         }
 
-        public List<RequestDTO> getIncomingRequest(int personId)
+        public List<DayDTO> GetTurnName (List<DayDTO> requestDay)
+        {
+
+            for (int i = 0; i < requestDay.Count; i++)
+            {
+                int turn = requestDay.ElementAt(i).turn;
+            
+            switch (turn)
+            {
+                case 1:
+                     requestDay.ElementAt(i).turnName = "mañana";
+                        break;
+
+                case 2:
+                        requestDay.ElementAt(i).turnName = "tarde";
+                        break;
+
+                    case 3:
+                        requestDay.ElementAt(i).turnName = "noche";
+                        break;
+
+                    default:
+                        requestDay.ElementAt(i).turnName = "día completo";
+                        break;
+
+                }
+
+            }
+
+            return requestDay;
+        }
+         
+
+        public List<RequestDTO> GetIncomingRequest(int personId)
         {
 
             List<RequestDTO> requestList = new List<RequestDTO>();
@@ -120,7 +168,7 @@ namespace Vacations.Controllers
         }
         
 
-        public Request notifyEmail(int  requestIdToServe, string description, string state)
+        public Request NotifyEmail(int requestIdToServe, string description, string state)
         {
             var now = DateTime.Now;
             var updateDate = new DateTime(now.Year, now.Month, now.Day,

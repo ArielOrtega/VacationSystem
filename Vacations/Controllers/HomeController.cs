@@ -77,6 +77,7 @@ namespace Vacations.Controllers
                 Person1 person = new Person1();
                 pass = Sha256Encription(pass);
 
+                
                 using (var context = new EntitiesVacation())
                 {
                     person = context.Person1

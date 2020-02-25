@@ -159,6 +159,7 @@
     <Compile Include="HoliDays.cs">
       <DependentUpon>EFVacations.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DayDTO.cs" />
     <Compile Include="Models\DateModel.cs" />
     <Compile Include="Models\RequestDTO.cs" />
     <Compile Include="Models\RequestModel.cs" />

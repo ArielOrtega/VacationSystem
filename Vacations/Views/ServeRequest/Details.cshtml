@@ -104,6 +104,10 @@
                         @Html.DisplayFor(modelItem => request.description)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => request.requestDays.ElementAt(1).turnName)
+                    </td>
+
+                    <td>
                         <button type="button" class="alert-success" onclick="ConfirmMessege()">Aceptar</button>
                         <button type="button" class="alert-danger" onclick="DenyMessege()">Rechazar</button>
                     </td>
