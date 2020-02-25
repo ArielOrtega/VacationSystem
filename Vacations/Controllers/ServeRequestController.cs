@@ -29,7 +29,7 @@ namespace Vacations.Controllers
         {
             List<RequestDTO> requestToList = new List<RequestDTO>();
             int idPerson = (int) this.Session["idUser"];
-            requestToList = getIncomingRequest(idPerson);
+            requestToList = GetIncomingRequest(idPerson);
 
 
             ViewData.Model = requestToList;
@@ -39,7 +39,7 @@ namespace Vacations.Controllers
 
         public ActionResult SendRequestAnswer(int requestIdToServe, string description, string state)
         {
-            notifyEmail (requestIdToServe,  description,  state);
+            NotifyEmail (requestIdToServe,  description,  state);
 
             return View();
         }
