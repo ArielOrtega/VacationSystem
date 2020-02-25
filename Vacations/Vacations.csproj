@@ -205,8 +205,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="fonts\icons_mobiscroll.ttf" />
-    <Content Include="fonts\icons_mobiscroll.woff" />
     <EntityDeploy Include="EFVacations.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EFVacations.Designer.cs</LastGenOutput>
@@ -214,6 +212,8 @@
     <Content Include="EFVacations.edmx.diagram">
       <DependentUpon>EFVacations.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\icons_mobiscroll.ttf" />
+    <Content Include="fonts\icons_mobiscroll.woff" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -260,7 +260,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
