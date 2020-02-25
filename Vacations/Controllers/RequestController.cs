@@ -225,7 +225,6 @@ namespace Vacations.Controllers
             {
                 List<DateModel> daysRequested = StringToList(days);
                 TempData["days"] = daysRequested.ToList();
-
             }
             return RedirectToAction("Check");
         }
@@ -240,7 +239,7 @@ namespace Vacations.Controllers
             for (int i = 0; i < parts.Count(); i++)
             {
                 date = new DateModel();
-                DateTime oDate = DateTime.ParseExact(parts[i], "dd/MM/yyyy", null);
+                DateTime oDate = DateTime.ParseExact(parts[i], "dd/mm/yyyy", null);
                 date.date = oDate;
                 StringToList.Add(date);
             };
