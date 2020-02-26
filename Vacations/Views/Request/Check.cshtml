@@ -1,114 +1,116 @@
 ﻿@model List<Vacations.Models.DateModel>
 
 @{
-                /**/
+    /**/
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-                /**/
+    /**/
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-                /**/
+    /**/
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
-                /**/
+    /**/
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
             crossorigin="anonymous"></script>
-                /**/
+    /**/
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
-                /**/
+    /**/
 
-                ViewBag.Title = "Create";
-                Layout = (string)this.Session["Header"];
-                if (this.Session["rolUsuario"] == null)
-                {
-                    Layout = "~/Views/Shared/_LayoutHome.cshtml";
-                    <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
-                }
-                else
-                {
+    ViewBag.Title = "Create";
+    Layout = (string)this.Session["Header"];
+    if (this.Session["rolUsuario"] == null)
+    {
+        Layout = "~/Views/Shared/_LayoutHome.cshtml";
+        <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
+    }
+    else
+    {
 
-                    <h2>Solicitud de Vacaciones</h2>
-                    using (Html.BeginForm("Check", "Request", FormMethod.Post, htmlAttributes: new { @id = "myForm" }))
-                    {
-                        @Html.AntiForgeryToken()
+        <h2>Solicitud de Vacaciones</h2>
+        <label>Marque los turnos correspondientes</label>
+        using (Html.BeginForm("Check", "Request", FormMethod.Post, htmlAttributes: new { @id = "myForm" }))
+        {
+            @Html.AntiForgeryToken()
 
-                        if (ViewBag.Message == "sent")
-                        {
-                            <script type="text/javascript">
+            if (ViewBag.Message == "sent")
+            {
+                <script type="text/javascript">
 
 
-                                $.alert({
-                                    title: 'Alert!',
-                                    content: 'Simple alert!',
-                                    theme: "modern"
-                                });
-
-                            </script>
-
-                        }
-                        else if (!string.IsNullOrEmpty(ViewBag.Message))
-                        {
-
-                            <div class="alert-danger col-md-4">
-                                @ViewBag.Message
-                            </div><br /><br />
-
-                        }
-                        <table class="table">
-                            @for (int index = 0; index < Model.Count; index++)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(item => item[index].date)@Html.HiddenFor(item => item[index].date)
-                                    </td>
-                                    <td>
-                                        @for (int index2 = 0; index2 < Model[index].turn.Count; index2++)
-                                        {
-                                            <div class="col-md-10">
-                                                @Html.HiddenFor(modelItem => Model[index].turn[index2].id)
-                                                @Html.CheckBoxFor(modelItem => Model[index].turn[index2].isChecked)@Html.HiddenFor(modelItem => Model[index].turn[index2].isChecked)
-                                                @Html.DisplayFor(modelItem => Model[index].turn[index2].label)@Html.HiddenFor(modelItem => Model[index].turn[index2].label)
-                                            </div>
-                                        }
-
-                                    </td>
-                                </tr>
-
-                            }
-
-                        </table>
-                        <a href="Profile/Profile" class="btn btn-warning cta-open" data-toggle="modal"
-                           data-target="#exampleModal">Enviar</a>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Solicitud</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Solicitud enviada exitosamente!
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-modal">
-                                            <a href="/Profile/Profile/">Ok</a>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-                <script>
-                    $(document).ready(function () {
-                        var button = $("#Send");
-                        button.click(function (event) {
-                            window.location = '/';
-                        })
+                    $.alert({
+                        title: 'Alert!',
+                        content: 'Simple alert!',
+                        theme: "modern"
                     });
 
-
                 </script>
+
+            }
+            else if (!string.IsNullOrEmpty(ViewBag.Message))
+            {
+
+                <div class="alert-danger col-md-4">
+                    @ViewBag.Message
+                </div><br /><br />
+
+            }
+            <table class="table">
+                @for (int index = 0; index < Model.Count; index++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(item => item[index].date)@Html.HiddenFor(item => item[index].date)
+                        </td>
+                        <td>
+                            @for (int index2 = 0; index2 < Model[index].turn.Count; index2++)
+                            {
+                                <div class="col-md-10">
+                                    @Html.HiddenFor(modelItem => Model[index].turn[index2].id)
+                                    @Html.CheckBoxFor(modelItem => Model[index].turn[index2].isChecked)@Html.HiddenFor(modelItem => Model[index].turn[index2].isChecked)
+                                    @Html.DisplayFor(modelItem => Model[index].turn[index2].label)@Html.HiddenFor(modelItem => Model[index].turn[index2].label)
+                                </div>
+                            }
+
+                        </td>
+                    </tr>
+
+                }
+
+            </table>
+
+            <a href="Profile/Profile" class="btn btn-warning cta-open" data-toggle="modal"
+               data-target="#exampleModal">Enviar</a>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Solicitud</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Solicitud enviada exitosamente!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-modal">
+                                <a href="/Profile/Profile/">Ok</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    <script>
+        $(document).ready(function () {
+            var button = $("#Send");
+            button.click(function (event) {
+                window.location = '/';
+            })
+        });
+
+
+    </script>
 }
