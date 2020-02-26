@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Net.Mail;
-using System.Web;
 using System.Web.Mvc;
 using Vacations.Models;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace Vacations.Controllers
 {
@@ -124,27 +124,37 @@ namespace Vacations.Controllers
 
             return requestDay;
         }
-         
+
+        public ActionResult DaysDetails(int requestId)
+        {
+            RequestDTO requestToFind = new RequestDTO();
+
+            requestToFind = getRequestDetails(requestId);
+
+            ViewData.Model = requestToFind;
+            return View();
+        }
+
 
         public List<RequestDTO> GetIncomingRequest(int personId)
         {
 
             List<RequestDTO> requestList = new List<RequestDTO>();
             Departament department = new Departament();
+            Person1 personSession = new Person1();
+
 
             using (EntitiesVacation entitiesVacation = new EntitiesVacation())
             {
-                department = entitiesVacation.Departament
-                              .Where(dep => dep.PersonpersonaId == personId).FirstOrDefault();
+                personSession = entitiesVacation.Person1
+                                .Where(per => per.personaId == personId).FirstOrDefault();
 
-                int idDepartamento = department.departamentId;
-
-                if (department != null)
+                if (personSession.RolrolId == 8)
                 {
                     requestList = (from d in entitiesVacation.Departament
                                    from person in d.Person1
                                    join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
-                                   where d.departamentId == idDepartamento
+                                   where person.RolrolId == 9 
                                    select new RequestDTO
                                    {
                                        requestId = request.requestId,
@@ -160,7 +170,36 @@ namespace Vacations.Controllers
                                        personName = person.name + " " + person.lastName,
                                    }).ToList();
                 }
+                else
+                {
 
+                    department = entitiesVacation.Departament
+                                 .Where(dep => dep.PersonpersonaId == personId).FirstOrDefault();
+
+                    int idDepartamento = department.departamentId;
+
+                    if (department != null)
+                    {
+                        requestList = (from d in entitiesVacation.Departament
+                                       from person in d.Person1
+                                       join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
+                                       where d.departamentId == idDepartamento
+                                       select new RequestDTO
+                                       {
+                                           requestId = request.requestId,
+                                           state = request.state,
+                                           description = request.description,
+                                           daysRequestedCount = request.daysRequestedCount,
+                                           midDaysCount = request.midDaysCount,
+                                           PersonpersonaId = request.PersonpersonaId,
+                                           createdAt = request.createdAt,
+                                           updatedAt = request.updatedAt,
+                                           createdBy = request.createdBy,
+                                           updatedBy = request.updatedBy,
+                                           personName = person.name + " " + person.lastName,
+                                       }).ToList();
+                    }
+                }
             }
 
             return requestList;
@@ -173,7 +212,7 @@ namespace Vacations.Controllers
             var now = DateTime.Now;
             var updateDate = new DateTime(now.Year, now.Month, now.Day,
                                           now.Hour, now.Minute, now.Second);
-
+            
             using (EntitiesVacation entitiesVacations = new EntitiesVacation())
             {
                 Request request = entitiesVacations.Request.Where
@@ -187,37 +226,40 @@ namespace Vacations.Controllers
                 entitiesVacations.SaveChanges();
 
                 var person = personController.GetPersonById(request.PersonpersonaId);
-                sendNotifyEmail(request, person.email);
+                string name = person.name + " " + person.lastName;
 
+                SendEmail(name, person.email, "Respuesta a la Solicitud de Vacaciones", request.description);
                 
             }
 
             return View("Serve");
         }
 
-        public String sendNotifyEmail(Request request, string recieverEmail)
+
+        public void SendEmail(string receiverName, string receiverEmail, string subject, string body)
         {
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Sistema de vacaciones", "OnVacationSys@gmail.com"));
+            message.To.Add(new MailboxAddress(receiverName, receiverEmail));
+            message.Subject = subject;
+            message.Body = new TextPart("plain")
+            {
+                Text = body
+            };
+
             try
             {
-                MailMessage message = new MailMessage();
-                SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress("OnVacationSys@gmail.com");
-                message.To.Add(new MailAddress(recieverEmail));
-                message.Subject = "Respuesta de Solcitud de Vacaciones";
-                message.Body = request.description;
-                smtp.Port = 587;
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
-                smtp.UseDefaultCredentials = false;
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Credentials = new System.Net.NetworkCredential("OnVacationSys@gmail.com", "Vacation12345.");
-                smtp.Send(message);
-                return "exito";
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587);
+                    client.Authenticate("OnVacationSys@gmail.com", "Vacation12345.");
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
             }
-            catch (Exception ex)
-            {
-
-                return ex.Message;
+            catch (Exception ex) {
+                Console.Write(ex.Message);
             }
         }
 
