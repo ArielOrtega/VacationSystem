@@ -219,22 +219,21 @@ namespace Vacations.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "requestId,state,description,daysRequestedCount,midDaysCount,PersonpersonaId,createdAt,updatedAt,createdBy,updatedBy")] Request request, String days)
+        public ActionResult Create([Bind(Include = "requestId,state,description,daysRequestedCount,midDaysCount,PersonpersonaId,createdAt,updatedAt,createdBy,updatedBy, justificacion")] Request request, String days)
         {
 
-           
+
             if (ModelState.IsValid)
             {
-                System.Diagnostics.Debug.WriteLine("HP;AAA");
-                System.Diagnostics.Debug.WriteLine(days);
-                List<DateModel> daysRequested = StringToList(days);
-                System.Diagnostics.Debug.WriteLine("ALO");
                 System.Diagnostics.Debug.WriteLine(request.justificacion);
+
+                List<DateModel> daysRequested = StringToList(days);
                 TempData["justif"] = request.justificacion;
                 TempData["days"] = daysRequested.ToList();
             }
             return RedirectToAction("Check");
         }
+
 
         public List<DateModel> StringToList(string days)
         {
@@ -267,6 +266,7 @@ namespace Vacations.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Check(List<DateModel> model)
         {
+
             String justificacion = TempData["justif"] as string;
 
             DateModel dateModel;
@@ -339,6 +339,7 @@ namespace Vacations.Controllers
             request.updatedBy = (int)Session["identification"];
             request.justificacion = justificacion;
 
+
             int payrollId = (int)Session["payrollId"];
             fullDaysCount += midDaysCount / 2;
 
@@ -356,14 +357,17 @@ namespace Vacations.Controllers
                 decrementDays(payroll, fullDaysCount);
                 addRequest(request);
                 addDays(daysRequested, request);
-                ViewBag.Message = "sent";
-                return View(model);
+
+                SendEmails();
+         
+                return RedirectToAction("Profile", "Profile", new { area = "" });
+
 
             }
 
-            return PartialView("Confirm");
 
         }
+
 
         public ActionResult Confirm()
         {
@@ -521,6 +525,21 @@ namespace Vacations.Controllers
             return requestListState;
         }
 
+        private void SendEmails()
+        {
+
+            var username = (string)Session["userName"];
+            var email = (string)Session["email"];
+
+            ServeRequestController.SendEmail(
+                        username,
+                        email,
+                        "Comfirmación de solicitud",
+                        "Estimado usuario, este es un mensaje " +
+                        "automatico generado por el sistema para " +
+                        "informarle que su solicitud ha sido creada con exito."
+                );
+        }
 
     }
 

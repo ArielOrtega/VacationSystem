@@ -240,7 +240,7 @@ namespace Vacations.Controllers
         }
 
 
-        public void SendEmail(string receiverName, string receiverEmail, string subject, string body)
+        public static void SendEmail(string receiverName, string receiverEmail, string subject, string body)
         {
 
             var message = new MimeMessage();
