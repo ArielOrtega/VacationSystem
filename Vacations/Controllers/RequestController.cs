@@ -357,13 +357,17 @@ namespace Vacations.Controllers
                 addRequest(request);
                 addDays(daysRequested, request);
                 ViewBag.Message = "sent";
+
+                SendEmails();
+
+
                 return View(model);
 
             }
 
-            return PartialView("Confirm");
 
         }
+
 
         public ActionResult Confirm()
         {
@@ -521,6 +525,21 @@ namespace Vacations.Controllers
             return requestListState;
         }
 
+        private void SendEmails()
+        {
+
+            var username = (string)Session["userName"];
+            var email = (string)Session["email"];
+
+            ServeRequestController.SendEmail(
+                        username,
+                        email,
+                        "Comfirmación de solicitud",
+                        "Estimado usuario, este es un mensaje " +
+                        "automatico generado por el sistema para " +
+                        "informarle que su solicitud ha sido creada con exito."
+                );
+        }
 
     }
 
