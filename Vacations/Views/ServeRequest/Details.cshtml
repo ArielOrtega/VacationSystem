@@ -1,6 +1,4 @@
-﻿
-
-@{
+﻿@{
     ViewBag.Title = "Details";
     Vacations.Models.RequestDTO request = ViewData.Model;
     Layout = (string)this.Session["Header"];
@@ -11,143 +9,91 @@
     }
     else
     {
-
-
-
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-    <script type="text/javascript">
-        function ConfirmMessege() {
-            //Ingresamos un mensaje a mostrar
-            var mensaje = confirm("¿Estás seguro (a) que deseas aceptar la solicitud?");
-            //Detectamos si el usuario acepto el mensaje
-            if (mensaje) {
-                var reason = prompt("Ingrese el motivo por el cual acepta la solicitud", "");
-            }
-            //Detectamos si el usuario denegó el mensaje
-            else {
-                alert("¡Haz denegado el mensaje!");
-            }
-        }
-    </script>
-
-    <script type="text/javascript">
-        function DenyMessege() {
-            //Ingresamos un mensaje a mostrar
-            var mensaje = confirm("¿Estás seguro (a) que deseas rechazar la solicitud?");
-            //Detectamos si el usuario acepto el mensaje
-            if (mensaje) {
-                var reason = prompt("Ingrese el motivo por el cual rechaza la solicitud", "");
-            }
-            //Detectamos si el usuario denegó el mensaje
-            else {
-                alert("¡Haz denegado el mensaje!");
-            }
-        }
-    </script>
-
-    <script type="text/javascript">
-        function ConfirmReason() {
-            //Ingresamos un mensaje a mostrar
-            var mensaje = confirm("¿Estás seguro (a) que desea enviar este motivo?");
-            //Detectamos si el usuario acepto el mensaje
-            if (mensaje) {
-                alert("¡Gracias por aceptar!");
-            }
-            //Detectamos si el usuario denegó el mensaje
-            else {
-                alert("¡Haz denegado el mensaje!");
-            }
-        }
-    </script>
-</head>
-<body>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio >", "Index", "HomeManager")</a></li>
-            <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Perfil >", "Profile", "Profile")</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Solicitudes ></li>
-            <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Atender Solicitudes >", "Serve", "ServeRequest")</li>
-            <li class="breadcrumb-item active" aria-current="page">Detalles ></li>
-        </ol>
-    </nav>
-    <h2>Detalles de la solicitud</h2>
-    <div>
-        <table class="table table-hover table-dark">
-            <thead>
-
-                <tr>
-                    <th scope="col" width="150">Solicitante</th>
-                    <th scope="col" width="150">Departamento</th>
-                    <th scope="col" width="150">Días solicitados</th>
-                    <th scope="col" width="150">Motivo</th>
-                    <th scope="col" width="150">Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.requestId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.personName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.departmentName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.daysRequestedCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.requestDays.ElementAt(1).turnName)
-                    </td>
-
-                </tr>
-
-            </tbody>
-        </table>
-       
-
-        <form action="~/ServeRequest/NotifyEmail" method="post">
-            
-            <div class="form-group">
-                <input type="number" name="requestIdToServe" id="requestIdToServe"
-                       value="@request.requestId" style="visibility:hidden">
-
-                <label for="TextArea" name="LabelTextAreaConfirm">Ingrese el motivo de confirmación de la solicitud</label>
-                <textarea type="text" class="form-control" name="description" id="description" rows="3" required></textarea>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Opciones</label>
-                    </div>
-                    <select class="custom-select" id="state" name="state">
-                        <option value="acepted"> Aceptar</option>
-                        <option value="rejected"> Rechazar</option>
-
-                    </select>
-                </div>
-            </div>
-            
-
-            <input type="submit" value="Enviar"> 
-
-        </form>
         
 
-    </div>
-    <FORM NAME="buttonbar">
-        <INPUT class="bg-primary" TYPE="button" VALUE="Atrás" onClick="history.back()">
-    </FORM>
-</body>
-</html>
+        <!DOCTYPE html>
+
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width" />
+            <title></title>
+
+
+        </head>
+        <body>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio >", "Index", "HomeManager")</a></li>
+                    <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Perfil >", "Profile", "Profile")</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Solicitudes ></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Atender Solicitudes >", "Serve", "ServeRequest")</li>
+                    <li class="breadcrumb-item active" aria-current="page">Detalles ></li>
+                </ol>
+            </nav>
+            <h2>Detalles de la solicitud</h2>
+            <div>
+                <table class="table table-hover table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col" width="150">Solicitante</th>
+                            <th scope="col" width="150">Departamento</th>
+                            <th scope="col" width="150">Días solicitados</th>
+                            <th scope="col" width="150">Motivo</th>
+                            <th scope="col" width="150">Estado</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => request.personName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => request.departmentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => request.daysRequestedCount) |
+                                <a asp-page="./Ver detalles">
+                                    @Html.ActionLink("Ver detalles", "DaysDetails", new { request.requestId })
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => request.description)
+                            </td>
+                            <td>
+                                En espera
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <form action="~/ServeRequest/NotifyEmail" method="post">
+                    <input type="number" name="requestIdToServe" id="requestIdToServe"
+                           value="@request.requestId" style="visibility:hidden">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <h4>Seleccione una opción para la solicitud</h4>
+                                <select class="custom-select" id="state" name="state">
+                                    <option value="acepted"> Aceptar</option>
+                                    <option value="rejected"> Rechazar</option>
+                                </select>
+                            </div>
+                        </div>
+                        <h4>Ingrese el motivo por el cuál acepta u rechaza la solicitud</h4>
+                        <textarea type="text" class="form-control" name="description" id="description" rows="3" cols="10" required></textarea>
+                    </div>
+
+                    <input type="submit" class="alert-info" value="Enviar">
+                </form>
+
+            </div>
+            <div>
+                <FORM NAME="buttonbar">
+                    <INPUT class="bg-primary" TYPE="button" VALUE="Atrás" onClick="history.back()">
+                </FORM>
+            </div>
+        </body>
+    </html>
         }
     }
