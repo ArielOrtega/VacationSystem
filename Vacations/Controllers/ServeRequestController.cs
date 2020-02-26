@@ -131,7 +131,8 @@ namespace Vacations.Controllers
 
             requestToFind = getRequestDetails(requestId);
 
-            ViewData.Model = requestToFind;
+            ViewData.Model = requestToFind.requestDays;
+
             return View();
         }
 
@@ -151,10 +152,9 @@ namespace Vacations.Controllers
 
                 if (personSession.RolrolId == 8)
                 {
-                    requestList = (from d in entitiesVacation.Departament
-                                   from person in d.Person1
+                    requestList = (from person in entitiesVacation.Person1
                                    join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
-                                   where person.RolrolId == 9 
+                                   where person.RolrolId == 9 & request.state == "sent"
                                    select new RequestDTO
                                    {
                                        requestId = request.requestId,
@@ -183,7 +183,7 @@ namespace Vacations.Controllers
                         requestList = (from d in entitiesVacation.Departament
                                        from person in d.Person1
                                        join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
-                                       where d.departamentId == idDepartamento
+                                       where d.departamentId == idDepartamento & request.state == "sent"
                                        select new RequestDTO
                                        {
                                            requestId = request.requestId,
@@ -197,7 +197,11 @@ namespace Vacations.Controllers
                                            createdBy = request.createdBy,
                                            updatedBy = request.updatedBy,
                                            personName = person.name + " " + person.lastName,
+                                           departmentName = d.name
                                        }).ToList();
+
+
+                       
                     }
                 }
             }

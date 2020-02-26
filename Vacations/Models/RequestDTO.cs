@@ -27,6 +27,7 @@ namespace Vacations.Models
         public string personName { get; set; }
         public string departmentName { get; set; }
         public List<DayDTO> requestDays { get; set;  }
+        public string justificacion { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Day> Day { get; set; }

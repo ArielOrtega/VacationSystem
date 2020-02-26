@@ -29,17 +29,7 @@
     </nav>
 
     <h2>Lista de solicitudes de vacaciones</h2>
-    <form asp-page="./Serve" method="get">
-        <div class="form-actions no-color">
-            <p>
-                Buscar por nombre:
-                <input type="text" name="SearchString" />
-                <input type="submit" value="Buscar" class="btn btn-primary" /> |
-                <a asp-page="./Index">@Html.ActionLink("Volver a la lista general", "Serve", "ServeRequest")</a>
-            </p>
-        </div>
-    </form>
-
+    
     <div>
         <table class="table table-hover table-dark">
             <thead>
@@ -53,20 +43,23 @@
                 @foreach (var item in ViewData.Model)
 
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.personName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.createdAt)
-                        </td>
-                        <td>
-                            <a asp-page="./Ver más">
-                                @Html.ActionLink("Details", "Details", new { requestId = item.requestId })
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.requestId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.personName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.createdAt)
+                    </td>
+                    <td>
+                        <a asp-page="./Ver más">
+                            @Html.ActionLink("Details", "Details", new { requestId = item.requestId })
 
-                            </a>
-                        </td>
-                    </tr>
+                        </a>
+                    </td>
+                </tr>
                 }
 
 

@@ -1,67 +1,69 @@
-﻿@{
+﻿@model List<Vacations.Models.DayDTO>
+
+@{
     ViewBag.Title = "Details";
-    Vacations.Models.RequestDTO request = ViewData.Model;
+
     Layout = (string)this.Session["Header"];
+    int i = 0;
     if (this.Session["rolUsuario"] == null)
     {
         Layout = "~/Views/Shared/_LayoutHome.cshtml";
         <h2>Vista no autorizada, por favor @Html.ActionLink("inicie sesion", "Index", "Home")</h2>
-        }
-        else
-        {
-
-        }
     }
-    <!DOCTYPE html>
+    else
+    {
 
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title></title>
-    </head>
-    <body>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio >", "Index", "HomeManager")</a></li>
-                <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Perfil >", "Profile", "Profile")</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Solicitudes ></li>
-                <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Atender Solicitudes >", "Serve", "ServeRequest")</li>
-                <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Detalles >", "Details", new { request.requestId })</li>
-                <li class="breadcrumb-item active" aria-current="page">Días solicitados ></li>
-            </ol>
-        </nav>
-        <h2>Detalles de la solicitud</h2>
-        <h4>Días solicitados</h4>
+    }
+}
+<!DOCTYPE html>
 
-        <table class="table table-hover table-dark">
-            <thead>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Inicio >", "Index", "HomeManager")</a></li>
+            <li class="breadcrumb-item"><a href="#">@Html.ActionLink("Perfil >", "Profile", "Profile")</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Solicitudes ></li>
+            <li class="breadcrumb-item active" aria-current="page">@Html.ActionLink("Atender Solicitudes >", "Serve", "ServeRequest")</li>
+            <li class="breadcrumb-item active" aria-current="page">Detalles ></li>
+            <li class="breadcrumb-item active" aria-current="page">Días solicitados ></li>
+        </ol>
+    </nav>
+    <h2>Detalles de la solicitud</h2>
+    <h4>Días solicitados</h4>
 
+    <table class="table table-hover table-dark">
+        <thead>
+
+            <tr>
+                <th scope="col" width="150">Fecha solicitada</th>
+                <th scope="col" width="150">Turno(s)</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewData.Model)
+
+            {
                 <tr>
-                    <th scope="col" width="150">Solicitante</th>
-                    <th scope="col" width="150">Fecha solicitada</th>
-                    <th scope="col" width="150">Turno(s)</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => request.personName)
+                        @Html.DisplayFor(modelItem =>item.day1)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => request.departmentName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => request.description)
+                        @Html.DisplayFor(modelItem => item.turnName)
                     </td>
                 </tr>
-
-            </tbody>
-        </table>
-        <div>
-            <FORM NAME="buttonbar">
-                <INPUT class="bg-primary" TYPE="button" VALUE="Atrás" onClick="history.back()">
-            </FORM>
-        </div>
-    </body>
+            }
+        </tbody>
+    </table>
+    <div>
+        <FORM NAME="buttonbar">
+            <INPUT class="bg-primary" TYPE="button" VALUE="Atrás" onClick="history.back()">
+        </FORM>
+    </div>
+</body>
 </html>
