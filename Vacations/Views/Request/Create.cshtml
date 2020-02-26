@@ -68,18 +68,19 @@
                 </div>
                 <div class="container">
                     <label>Seleccione los días a solicitar</label>
-
                     @Html.HiddenFor(model => model.days, htmlAttributes: new { @id = "date", @type = "text", @class = "form-control date", @placeholder = "Elegir días", @autocomplete = "off" })
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <div class="container">
-                        <label>Ingrese una justificación para los días solicitados</label>
-                        @Html.TextAreaFor(model => model.justificacion)
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="container">
+                            <label>Ingrese una justificación para los días solicitados</label>
+                            @Html.TextBoxFor(model => model.justificacion)
+                            @Html.HiddenFor(model => model.justificacion)
                         </div>
                     </div>
                 </div>
+            </div>
+
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

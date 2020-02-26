@@ -219,19 +219,21 @@ namespace Vacations.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "requestId,state,description,daysRequestedCount,midDaysCount,PersonpersonaId,createdAt,updatedAt,createdBy,updatedBy")] Request request, String days)
+        public ActionResult Create([Bind(Include = "requestId,state,description,daysRequestedCount,midDaysCount,PersonpersonaId,createdAt,updatedAt,createdBy,updatedBy, justificacion")] Request request, String days)
         {
 
-           
+
             if (ModelState.IsValid)
             {
-                System.Diagnostics.Debug.WriteLine(days);
+                System.Diagnostics.Debug.WriteLine(request.justificacion);
+
                 List<DateModel> daysRequested = StringToList(days);
                 TempData["justif"] = request.justificacion;
                 TempData["days"] = daysRequested.ToList();
             }
             return RedirectToAction("Check");
         }
+
 
         public List<DateModel> StringToList(string days)
         {
@@ -264,6 +266,7 @@ namespace Vacations.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Check(List<DateModel> model)
         {
+
             String justificacion = TempData["justif"] as string;
 
             DateModel dateModel;
@@ -334,6 +337,8 @@ namespace Vacations.Controllers
             request.createdAt = DateTime.Now;
             request.updatedAt = DateTime.Now;
             request.updatedBy = (int)Session["identification"];
+            request.justificacion = justificacion;
+
 
             int payrollId = (int)Session["payrollId"];
             fullDaysCount += midDaysCount / 2;
@@ -353,13 +358,8 @@ namespace Vacations.Controllers
                 addRequest(request);
                 addDays(daysRequested, request);
 
-                ViewBag.Message = "sent";
-
                 SendEmails();
-
-
-                //return View(model);
-
+         
                 return RedirectToAction("Profile", "Profile", new { area = "" });
 
 
