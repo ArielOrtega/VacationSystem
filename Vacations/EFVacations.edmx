@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AnalisisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AnalisisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Day">
           <Key>
             <PropertyRef Name="dayId" />
@@ -44,11 +44,20 @@
           <Property Name="createdBy" Type="int" Nullable="false" />
           <Property Name="updatedBy" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view '2020Analisis.VACATIONS.Payroll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista '2020Analisis.VACATIONS.Payroll' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Payroll">
           <Key>
             <PropertyRef Name="RolId" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
           </Key>
           <Property Name="RolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="salary" Type="int" Nullable="false" />
@@ -113,6 +122,7 @@ warning 6002: The table/view '2020Analisis.VACATIONS.Payroll' does not have a pr
           <Property Name="createdBy" Type="int" Nullable="false" />
           <Property Name="updatedBy" Type="int" Nullable="false" />
           <Property Name="PersonpersonaId" Type="int" Nullable="false" />
+          <Property Name="justificacion" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -301,8 +311,7 @@ warning 6002: The table/view '2020Analisis.VACATIONS.Payroll' does not have a pr
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AnalisisModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -398,6 +407,7 @@ warning 6002: The table/view '2020Analisis.VACATIONS.Payroll' does not have a pr
           <NavigationProperty Name="Day" Relationship="Self.HasDays" FromRole="Request" ToRole="Day" />
           <NavigationProperty Name="Person1" Relationship="Self.manages" FromRole="Request" ToRole="Person1" />
           <NavigationProperty Name="VacationInfo" Relationship="Self.HasRequest" FromRole="Request" ToRole="VacationInfo" />
+          <Property Name="justificacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -615,6 +625,7 @@ warning 6002: The table/view '2020Analisis.VACATIONS.Payroll' does not have a pr
           <EntitySetMapping Name="Request">
             <EntityTypeMapping TypeName="AnalisisModel.Request">
               <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="justificacion" ColumnName="justificacion" />
                 <ScalarProperty Name="requestId" ColumnName="requestId" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="description" ColumnName="description" />

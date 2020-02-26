@@ -11,8 +11,7 @@ namespace Vacations
 {
     using System;
     using System.Collections.Generic;
-    using Vacations.Models;
-
+    
     public partial class Request
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,9 +20,7 @@ namespace Vacations
             this.Day = new HashSet<Day>();
             this.VacationInfo = new HashSet<VacationInfo>();
         }
-
-        public List<DateModel> days { get; set; }
-
+    
         public int requestId { get; set; }
         public string state { get; set; }
         public string description { get; set; }
@@ -34,6 +31,7 @@ namespace Vacations
         public int createdBy { get; set; }
         public int updatedBy { get; set; }
         public int PersonpersonaId { get; set; }
+        public string justificacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Day> Day { get; set; }
