@@ -11,6 +11,7 @@ namespace Vacations.Models
         {
             this.Day = new HashSet<Day>();
             this.VacationInfo = new HashSet<VacationInfo>();
+            this.requestDays = new List<DayDTO>();
         }
 
         public List<DateModel> days { get; set; }
@@ -26,7 +27,7 @@ namespace Vacations.Models
         public int updatedBy { get; set; }
         public string personName { get; set; }
         public string departmentName { get; set; }
-        public List<DayDTO> requestDays { get; set;  }
+        public List<DayDTO> requestDays { get; set; } = new List<DayDTO>();
         public string justificacion { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -49,6 +49,7 @@ namespace Vacations.Controllers
         {
             RequestDTO requestToFind = new RequestDTO();
             List<DayDTO> requestDay = new List<DayDTO>();
+            String depName="";
 
             using (EntitiesVacation entitiesVacation = new EntitiesVacation())
             {
@@ -63,29 +64,44 @@ namespace Vacations.Controllers
                                   turn = day.turn
 
                               }).ToList();
+                
+                    requestToFind = (from person in entitiesVacation.Person1
+                                     join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
+                                     where request.requestId == requestId 
+                                     select new RequestDTO
+                                     {
+                                         requestId = request.requestId,
+                                         state = request.state,
+                                         justificacion = request.justificacion,
+                                         daysRequestedCount = request.daysRequestedCount,
+                                         midDaysCount = request.midDaysCount,
+                                         PersonpersonaId = request.PersonpersonaId,
+                                         createdAt = request.createdAt,
+                                         updatedAt = request.updatedAt,
+                                         createdBy = request.createdBy,
+                                         updatedBy = request.updatedBy,
+                                         personName = person.name + " " + person.lastName
+                                     }).FirstOrDefault();
+                
+                Person1 personLookFor = entitiesVacation.Person1
+                                        .Where(per => per.personaId == requestToFind.PersonpersonaId).FirstOrDefault();
+               
 
+                if (personLookFor.RolrolId == 9)
+                {
+                    depName = (from dep in entitiesVacation.Departament
+                     join person in entitiesVacation.Person1 
+                     on dep.PersonpersonaId equals personLookFor.personaId
+                     select dep.name).FirstOrDefault();
+                }
+                else if (personLookFor.RolrolId == 7)
+                {
+                    depName = (from dep in entitiesVacation.Departament
+                     from person in dep.Person1
+                     select dep.name).FirstOrDefault();
+                }
 
-
-                requestToFind = (from d in entitiesVacation.Departament
-                                 from person in d.Person1
-                                 join request in entitiesVacation.Request on person.personaId equals request.PersonpersonaId
-                                 where request.requestId == requestId
-                                 select new RequestDTO
-                                 {
-                                     requestId = request.requestId,
-                                     state = request.state,
-                                     description = request.description,
-                                     daysRequestedCount = request.daysRequestedCount,
-                                     midDaysCount = request.midDaysCount,
-                                     PersonpersonaId = request.PersonpersonaId,
-                                     createdAt = request.createdAt,
-                                     updatedAt = request.updatedAt,
-                                     createdBy = request.createdBy,
-                                     updatedBy = request.updatedBy,
-                                     personName = person.name + " " + person.lastName,
-                                     departmentName = d.name
-                                 }).FirstOrDefault();
-
+                requestToFind.departmentName = depName;
                 requestToFind.requestDays = GetTurnName(requestDay);
 
             }
@@ -236,7 +252,7 @@ namespace Vacations.Controllers
                 
             }
 
-            return View("Serve");
+            return View();
         }
 
 
