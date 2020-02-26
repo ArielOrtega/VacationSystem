@@ -352,16 +352,16 @@ namespace Vacations.Controllers
                 decrementDays(payroll, fullDaysCount);
                 addRequest(request);
                 addDays(daysRequested, request);
-<<<<<<< HEAD
+
                 ViewBag.Message = "sent";
 
                 SendEmails();
 
 
-                return View(model);
-=======
+                //return View(model);
+
                 return RedirectToAction("Profile", "Profile", new { area = "" });
->>>>>>> 74a01cd4739e9c8289b63c30670c152076eb8872
+
 
             }
 
