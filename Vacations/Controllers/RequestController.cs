@@ -221,8 +221,12 @@ namespace Vacations.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "requestId,state,description,daysRequestedCount,midDaysCount,PersonpersonaId,createdAt,updatedAt,createdBy,updatedBy")] Request request, String days)
         {
+
+           
             if (ModelState.IsValid)
             {
+                System.Diagnostics.Debug.WriteLine("HP;AAA");
+                System.Diagnostics.Debug.WriteLine(days);
                 List<DateModel> daysRequested = StringToList(days);
                 TempData["days"] = daysRequested.ToList();
             }
