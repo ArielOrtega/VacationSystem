@@ -225,11 +225,8 @@ namespace Vacations.Controllers
            
             if (ModelState.IsValid)
             {
-                System.Diagnostics.Debug.WriteLine("HP;AAA");
                 System.Diagnostics.Debug.WriteLine(days);
                 List<DateModel> daysRequested = StringToList(days);
-                System.Diagnostics.Debug.WriteLine("ALO");
-                System.Diagnostics.Debug.WriteLine(request.justificacion);
                 TempData["justif"] = request.justificacion;
                 TempData["days"] = daysRequested.ToList();
             }
@@ -337,7 +334,6 @@ namespace Vacations.Controllers
             request.createdAt = DateTime.Now;
             request.updatedAt = DateTime.Now;
             request.updatedBy = (int)Session["identification"];
-            request.justificacion = justificacion;
 
             int payrollId = (int)Session["payrollId"];
             fullDaysCount += midDaysCount / 2;
@@ -356,12 +352,16 @@ namespace Vacations.Controllers
                 decrementDays(payroll, fullDaysCount);
                 addRequest(request);
                 addDays(daysRequested, request);
+<<<<<<< HEAD
                 ViewBag.Message = "sent";
 
                 SendEmails();
 
 
                 return View(model);
+=======
+                return RedirectToAction("Profile", "Profile", new { area = "" });
+>>>>>>> 74a01cd4739e9c8289b63c30670c152076eb8872
 
             }
 
