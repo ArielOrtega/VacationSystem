@@ -21,6 +21,7 @@ namespace Vacations
             this.VacationInfo = new HashSet<VacationInfo>();
         }
     
+        public List<DateTime> days { get; set; }
         public int requestId { get; set; }
         public string state { get; set; }
         public string description { get; set; }

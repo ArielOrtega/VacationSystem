@@ -228,6 +228,9 @@ namespace Vacations.Controllers
                 System.Diagnostics.Debug.WriteLine("HP;AAA");
                 System.Diagnostics.Debug.WriteLine(days);
                 List<DateModel> daysRequested = StringToList(days);
+                System.Diagnostics.Debug.WriteLine("ALO");
+                System.Diagnostics.Debug.WriteLine(request.justificacion);
+                TempData["justif"] = request.justificacion;
                 TempData["days"] = daysRequested.ToList();
             }
             return RedirectToAction("Check");
@@ -255,6 +258,7 @@ namespace Vacations.Controllers
         public ActionResult Check()
         {
             List<DateModel> model = TempData["days"] as List<DateModel>;
+            
 
             return View(model);
         }
@@ -263,6 +267,7 @@ namespace Vacations.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Check(List<DateModel> model)
         {
+            String justificacion = TempData["justif"] as string;
 
             DateModel dateModel;
             List<TurnModel> turn;
@@ -332,6 +337,7 @@ namespace Vacations.Controllers
             request.createdAt = DateTime.Now;
             request.updatedAt = DateTime.Now;
             request.updatedBy = (int)Session["identification"];
+            request.justificacion = justificacion;
 
             int payrollId = (int)Session["payrollId"];
             fullDaysCount += midDaysCount / 2;
@@ -463,7 +469,7 @@ namespace Vacations.Controllers
         {
             if (payroll != null)
             {
-                payroll.availableDays = payroll.availableDays - fullDaysCount;
+                //payroll.availableDays = payroll.availableDays - fullDaysCount;
                 db.SaveChanges();
             }
         }
